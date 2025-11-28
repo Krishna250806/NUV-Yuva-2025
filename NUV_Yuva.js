@@ -567,7 +567,7 @@
   (function countdown() {
     const daysEl = q('#days'), hoursEl = q('#hours'), minutesEl = q('#minutes'), secondsEl = q('#seconds'), countdownWrapper = q('#countdown');
     if (!(daysEl && hoursEl && minutesEl && secondsEl && countdownWrapper)) return;
-    const EVENT_TS = new Date('2026-02-07T00:00:00').getTime();
+    const EVENT_TS = new Date('2026-02-06T00:00:00').getTime();
     function tick() {
       const diff = Math.max(0, EVENT_TS - nowTs());
       if (diff <= 0) {

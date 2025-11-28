@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      NUV Yuva 2026 - College Cultural Fest | Where Culture Meets Celebration
+    </title>
+    <link rel="stylesheet" href="NUV_Yuva.css" />
+    <link rel="stylesheet" href="assets/ui/liquid-glass-button.css" />
+    <link rel="stylesheet" href="assets/ui/button-splash.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <meta
+      name="description"
+      content="Join NUV Yuva 2026, the ultimate college cultural fest featuring music, dance, drama, art, and more. Register now for 3 days of non-stop entertainment!"
+    />
+  </head>
+  <body class="loading enchanted-forest">
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+      <div class="loading-content">
+        <div class="loading-logo">
+          <div class="logo-text">NUV</div>
+          <div class="logo-text">Yuva</div>
+        </div>
+        <div class="loading-subtitle">Where Culture Meets Celebration</div>
+        <div class="loading-progress">
+          <div class="loading-bar">
+            <div class="loading-bar-fill"></div>
+          </div>
+          <div class="loading-percentage">0%</div>
+        </div>
+        <div class="loading-particles">
+          <div class="particle"></div>
+          <div class="particle"></div>
+          <div class="particle"></div>
+          <div class="particle"></div>
+          <div class="particle"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+      <div class="container">
+        <div class="nav-content">
+          <div class="logo" id="logo"><a href="#home-logo">NUV Yuva</a></div>
+          <div class="nav-links">
+            <a href="#home">Home</a>
+            <a href="#current-fest">Current Fest</a>
+            <a href="#last-year">Last Year</a>
+            <a href="#registration">Register</a>
+            <a href="#committee">Committee</a>
+            <a href="#previous-events">Previous Events</a>
+            <a href="#registration" class="btn btn-primary">Register Now</a>
+          </div>
+          <button
+            class="mobile-menu"
+            onclick="toggleMobileMenu()"
+            aria-label="Open menu"
+          >
+            <i class="fa-solid fa-bars" style="color: #f4f7fa"></i>
+          </button>
+        </div>
+      </div>
+      <div class="mobile-nav" id="mobileNav" aria-hidden="true">
+        <a href="#home" onclick="toggleMobileMenu()">Home</a>
+        <a href="#current-fest" onclick="toggleMobileMenu()">Current Fest</a>
+        <a href="#last-year" onclick="toggleMobileMenu()">Last Year</a>
+        <a href="#registration" onclick="toggleMobileMenu()">Register</a>
+        <a href="#committee" onclick="toggleMobileMenu()">Committee</a>
+        <a href="#previous-events" onclick="toggleMobileMenu()"
+          >Previous Events</a
+        >
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+      <div class="container">
+        <div class="hero-content fade-in">
+          <div class="badge float">
+            <span>✨</span>
+            <span>2026 Edition</span>
+          </div>
+          <h1>
+            <span class="text-gradient" id="home-logo">NUV Yuva</span>
+          </h1>
+          <div class="subtitle">Where Culture Meets Celebration</div>
+          <p>
+            Join us for the most electrifying cultural extravaganza of the year.
+            Experience art, music, dance, and drama like never before!
+          </p>
+
+          <div class="event-details">
+            <div class="event-detail">
+              <span>📅</span>
+              <span>February 6-8, 2026</span>
+            </div>
+            <div class="event-detail">
+              <span>📍</span>
+              <span>University Campus</span>
+            </div>
+          </div>
+
+          <!-- Countdown Timer -->
+          <div class="countdown" id="countdown">
+            <div class="countdown-item">
+              <div class="countdown-value" id="days">00</div>
+              <div class="countdown-label">Days</div>
+            </div>
+            <div class="countdown-item">
+              <div class="countdown-value" id="hours">00</div>
+              <div class="countdown-label">Hours</div>
+            </div>
+            <div class="countdown-item">
+              <div class="countdown-value" id="minutes">00</div>
+              <div class="countdown-label">Minutes</div>
+            </div>
+            <div class="countdown-item">
+              <div class="countdown-value" id="seconds">00</div>
+              <div class="countdown-label">Seconds</div>
+            </div>
+          </div>
+
+          <div class="btn-group">
+            <a href="#registration" class="btn btn-primary">Register Now</a>
+            <a href="#current-fest" class="btn btn-secondary">View Schedule</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Current Fest Section -->
+    <section id="current-fest">
+      <div class="container">
+        <h2 class="section-title text-gradient">Current Year Fest</h2>
+        <p class="section-subtitle">
+          Get ready for three days of non-stop entertainment, creativity, and
+          cultural celebration
+        </p>
+
+        <div class="events-grid">
+          <div class="event-card">
+            <div class="event-icon">👥</div>
+            <h3 class="event-title">Dance Competition</h3>
+            <p class="event-description">
+              Solo, duet, and group performances showcasing various dance styles
+              from classical to contemporary
+            </p>
+            <div class="event-meta">
+              <span>Day 1 - 5:00 PM</span>
+              <span>25+ Teams</span>
+            </div>
+            <div class="categories">
+              <span class="category-tag">Classical</span>
+              <span class="category-tag">Western</span>
+              <span class="category-tag">Folk</span>
+              <span class="category-tag">Contemporary</span>
+            </div>
+          </div>
+
+          <div class="event-card">
+            <div class="event-icon">🎵</div>
+            <h3 class="event-title">Music Festival</h3>
+            <p class="event-description">
+              Solo singing, instrumental performances, and band competitions
+              across multiple genres
+            </p>
+            <div class="event-meta">
+              <span>Day 2 - 4:00 PM</span>
+              <span>40+ Performers</span>
+            </div>
+            <div class="categories">
+              <span class="category-tag">Vocal Solo</span>
+              <span class="category-tag">Instrumental</span>
+              <span class="category-tag">Band Performance</span>
+              <span class="category-tag">Fusion</span>
+            </div>
+          </div>
+
+          <div class="event-card">
+            <div class="event-icon">⭐</div>
+            <h3 class="event-title">Talent Show</h3>
+            <p class="event-description">
+              Showcase your unique talents - from magic to beatboxing, poetry to
+              stand-up comedy
+            </p>
+            <div class="event-meta">
+              <span>Day 3 - 6:00 PM</span>
+              <span>30+ Artists</span>
+            </div>
+            <div class="categories">
+              <span class="category-tag">Stand-up</span>
+              <span class="category-tag">Magic</span>
+              <span class="category-tag">Beatbox</span>
+              <span class="category-tag">Poetry</span>
+            </div>
+          </div>
+
+          <div class="event-card">
+            <div class="event-icon">🎮</div>
+            <h3 class="event-title">Esports Tournament</h3>
+            <p class="event-description">
+              Compete in popular games like BGMI, Valorant, FIFA, and more with
+              exciting prizes
+            </p>
+            <div class="event-meta">
+              <span>All Days</span>
+              <span>100+ Gamers</span>
+            </div>
+            <div class="categories">
+              <span class="category-tag">BGMI</span>
+              <span class="category-tag">Valorant</span>
+              <span class="category-tag">FIFA</span>
+              <span class="category-tag">CS:GO</span>
+            </div>
+          </div>
+
+          <div class="event-card">
+            <div class="event-icon">🏆</div>
+            <h3 class="event-title">Sports Championship</h3>
+            <p class="event-description">
+              Traditional sports competitions including cricket, football,
+              basketball, and athletics
+            </p>
+            <div class="event-meta">
+              <span>Day 1 & 2</span>
+              <span>50+ Teams</span>
+            </div>
+            <div class="categories">
+              <span class="category-tag">Cricket</span>
+              <span class="category-tag">Football</span>
+              <span class="category-tag">Basketball</span>
+              <span class="category-tag">Athletics</span>
+            </div>
+          </div>
+
+          <div class="event-card">
+            <div class="event-icon">🎲</div>
+            <h3 class="event-title">Fun Games Arena</h3>
+            <p class="event-description">
+              Enjoy exciting carnival games, treasure hunts, and team challenges
+              for amazing prizes
+            </p>
+            <div class="event-meta">
+              <span>All Days</span>
+              <span>Open for All</span>
+            </div>
+            <div class="categories">
+              <span class="category-tag">Treasure Hunt</span>
+              <span class="category-tag">Minute to Win It</span>
+              <span class="category-tag">Carnival Games</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Last Year Section -->
+    <section id="last-year" style="background: rgba(47, 110, 106, 0.12)">
+      <div class="container">
+        <h2 class="section-title text-gradient">Last Year's Magic</h2>
+        <p class="section-subtitle">
+          Relive the incredible moments from NUV Yuva 2025
+        </p>
+
+        <div class="gallery">
+          <div class="gallery-item">
+            <img
+              src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect fill='%232F6E6A' width='400' height='300'/%3E%3Ctext x='50%25' y='50%25' font-size='20' fill='white' text-anchor='middle' dominant-baseline='middle'%3EOpening Ceremony%3C/text%3E%3C/svg%3E"
+              alt="Opening Ceremony"
+            />
+          </div>
+          <div class="gallery-item">
+            <img
+              src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect fill='%2362775B' width='400' height='300'/%3E%3Ctext x='50%25' y='50%25' font-size='20' fill='white' text-anchor='middle' dominant-baseline='middle'%3ERock Band%3C/text%3E%3C/svg%3E"
+              alt="Rock Band"
+            />
+          </div>
+          <div class="gallery-item">
+            <img
+              src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect fill='%23CC604B' width='400' height='300'/%3E%3Ctext x='50%25' y='50%25' font-size='20' fill='white' text-anchor='middle' dominant-baseline='middle'%3ECultural Dance%3C/text%3E%3C/svg%3E"
+              alt="Cultural Dance"
+            />
+          </div>
+          <div class="gallery-item">
+            <img
+              src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect fill='%2395586A' width='400' height='300'/%3E%3Ctext x='50%25' y='50%25' font-size='20' fill='white' text-anchor='middle' dominant-baseline='middle'%3EArt Exhibition%3C/text%3E%3C/svg%3E"
+              alt="Art Exhibition"
+            />
+          </div>
+          <div class="gallery-item">
+            <img
+              src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect fill='%23F3E5A8' width='400' height='300'/%3E%3Ctext x='50%25' y='50%25' font-size='20' fill='%230D1A17' text-anchor='middle' dominant-baseline='middle'%3EComedy Night%3C/text%3E%3C/svg%3E"
+              alt="Comedy Night"
+            />
+          </div>
+          <div class="gallery-item">
+            <img
+              src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Crect fill='%23E3E1D7' width='400' height='300'/%3E%3Ctext x='50%25' y='50%25' font-size='20' fill='%232F2A1C' text-anchor='middle' dominant-baseline='middle'%3EClosing Ceremony%3C/text%3E%3C/svg%3E"
+              alt="Closing Ceremony"
+            />
+          </div>
+        </div>
+
+        <div
+          style="
+            margin-top: 3rem;
+            padding: 2rem;
+            background: linear-gradient(
+              135deg,
+              rgba(47, 110, 106, 0.2),
+              rgba(149, 88, 106, 0.18)
+            );
+            border: 1px solid var(--border);
+            border-radius: 12px;
+          "
+        >
+          <blockquote style="text-align: center">
+            <p
+              style="
+                font-size: 1.25rem;
+                font-style: italic;
+                margin-bottom: 1rem;
+              "
+            >
+              "NUV Yuva 2025 was an unforgettable experience! The energy, the
+              performances, and the overall vibe were absolutely electric. Can't
+              wait for this year!"
+            </p>
+            <footer style="color: var(--muted)">
+              — Rahul Sharma, Final Year Student
+            </footer>
+          </blockquote>
+        </div>
+      </div>
+    </section>
+
+    <!-- Registration Call-to-Action -->
+    <section id="registration" class="enchanted-register" tabindex="0">
+      <div class="enchanted-register__wash" aria-hidden="true"></div>
+      <canvas id="registration-ribbon" aria-hidden="true"></canvas>
+      <div class="container">
+        <h2 class="section-title text-gradient">Ready to Join?</h2>
+        <p class="section-subtitle">
+          Don't miss out on the excitement! Secure your spot at NUV Yuva 2026
+        </p>
+        <div class="cta-btn-wrap">
+          <button
+            class="btn enchanted-glass-btn"
+            type="button"
+            onclick="alert('Registration form coming soon!')"
+          >
+            Register Now
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Committee Members (original markup – JS will transform to pyramid) -->
+    <section id="committee" style="background: rgba(47, 110, 106, 0.12)">
+      <div class="container">
+        <h2 class="section-title text-gradient">Committee Members</h2>
+        <p class="section-subtitle">
+          Meet the dedicated team behind NUV Yuva 2026
+        </p>
+
+        <div class="committee-grid">
+          <div class="member-card">
+            <div class="member-avatar">VR</div>
+            <div class="member-name">Vivek Rathod</div>
+            <div class="member-role">President</div>
+          </div>
+          <div class="member-card">
+            <div class="member-avatar">ZK</div>
+            <div class="member-name">Zainab Kapasi</div>
+            <div class="member-role">President</div>
+          </div>
+          <div class="member-card">
+            <div class="member-avatar">NM</div>
+            <div class="member-name">Naisargi Modi</div>
+            <div class="member-role">Vice President</div>
+          </div>
+          <div class="member-card">
+            <div class="member-avatar">AD</div>
+            <div class="member-name">Aarya Dongre</div>
+            <div class="member-role">Vice President</div>
+          </div>
+          <div class="member-card">
+            <div class="member-avatar">SS</div>
+            <div class="member-name">Sambhav Shah</div>
+            <div class="member-role">Treasurer</div>
+          </div>
+          <div class="member-card">
+            <div class="member-avatar">NL</div>
+            <div class="member-name">Nikhil Lokwani</div>
+            <div class="member-role">Treasurer</div>
+          </div>
+          <div class="member-card">
+            <div class="member-avatar">SS</div>
+            <div class="member-name">Sambhav Shah</div>
+            <div class="member-role">Secretary</div>
+          </div>
+          <div class="member-card">
+            <div class="member-avatar">DP</div>
+            <div class="member-name">Dhyan Patel</div>
+            <div class="member-role">Cultural Head</div>
+          </div>
+          <div class="member-card">
+            <div class="member-avatar">VJ</div>
+            <div class="member-name">Venu Joshi</div>
+            <div class="member-role">Cultural Head</div>
+          </div>
+          <div class="member-card">
+            <div class="member-avatar">DH</div>
+            <div class="member-name">Dhruv Hariyani</div>
+            <div class="member-role">Student Welfare</div>
+          </div>
+          <div class="member-card">
+            <div class="member-avatar">KJ</div>
+            <div class="member-name">Kanishka Jagtap</div>
+            <div class="member-role">Marketing Head</div>
+          </div>
+          <div class="member-card">
+            <div class="member-avatar">NL</div>
+            <div class="member-name">Nikhil Lokwani</div>
+            <div class="member-role">Marketing Head</div>
+          </div>
+          <div class="member-card">
+            <div class="member-avatar">VS</div>
+            <div class="member-name">Vidhi Shah</div>
+            <div class="member-role">Marketing Head</div>
+          </div>
+          <div class="member-card">
+            <div class="member-avatar">SR</div>
+            <div class="member-name">Suryaansh Rana</div>
+            <div class="member-role">Outreach Head</div>
+          </div>
+          <div class="member-card">
+            <div class="member-avatar">AP</div>
+            <div class="member-name">Adil Pillai</div>
+            <div class="member-role">Outreach Head</div>
+          </div>
+          <div class="member-card">
+            <div class="member-avatar">HM</div>
+            <div class="member-name">Hatim Merchant</div>
+            <div class="member-role">Design Head</div>
+          </div>
+          <div class="member-card">
+            <div class="member-avatar">RP</div>
+            <div class="member-name">Rishita Pittie</div>
+            <div class="member-role">Design Head</div>
+          </div>
+          <div class="member-card">
+            <div class="member-avatar">RG</div>
+            <div class="member-name">Ria Gupta</div>
+            <div class="member-role">Content Head</div>
+          </div>
+          <div class="member-card">
+            <div class="member-avatar">EM</div>
+            <div class="member-name">Elizabeth Mathew</div>
+            <div class="member-role">Content Head</div>
+          </div>
+          <div class="member-card">
+            <div class="member-avatar">NG</div>
+            <div class="member-name">Nivedita Gajjar</div>
+            <div class="member-role">Content Head</div>
+          </div>
+          <div class="member-card">
+            <div class="member-avatar">AB</div>
+            <div class="member-name">Ayaan Barodawal</div>
+            <div class="member-role">E-Sports Head</div>
+          </div>
+          <div class="member-card">
+            <div class="member-avatar">JA</div>
+            <div class="member-name">Jatin Asnani</div>
+            <div class="member-role">E-Sports Head</div>
+          </div>
+          <div class="member-card">
+            <div class="member-avatar">TU</div>
+            <div class="member-name">Tanaisha Udwadia</div>
+            <div class="member-role">Decoration Head</div>
+          </div>
+          <div class="member-card">
+            <div class="member-avatar">LD</div>
+            <div class="member-name">Lahar Dave</div>
+            <div class="member-role">Decoration Head</div>
+          </div>
+          <div class="member-card">
+            <div class="member-avatar">TD</div>
+            <div class="member-name">Tvisha Dave</div>
+            <div class="member-role">Decoration Head</div>
+          </div>
+          <div class="member-card">
+            <div class="member-avatar">KS</div>
+            <div class="member-name">Krisha Savalia</div>
+            <div class="member-role">Social Media Head</div>
+          </div>
+          <div class="member-card">
+            <div class="member-avatar">DM</div>
+            <div class="member-name">Dhrumi Meghani</div>
+            <div class="member-role">Social Media Head</div>
+          </div>
+          <div class="member-card">
+            <div class="member-avatar">HM</div>
+            <div class="member-name">Hrishikesh Mahida</div>
+            <div class="member-role">Media Head</div>
+          </div>
+          <div class="member-card">
+            <div class="member-avatar">DP</div>
+            <div class="member-name">Dhyan Patel</div>
+            <div class="member-role">Technical Head</div>
+          </div>
+          <div class="member-card">
+            <div class="member-avatar">HP</div>
+            <div class="member-name">Heer Patel</div>
+            <div class="member-role">Technical Head</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Previous Events Timeline -->
+    <section id="previous-events">
+      <div class="container">
+        <h2 class="section-title text-gradient">Festival Timeline</h2>
+        <p class="section-subtitle">Our journey through the years</p>
+
+        <div class="festival-timeline">
+          <div class="timeline-item">
+            <div class="timeline-marker"></div>
+            <div class="timeline-body">
+              <div class="timeline-label">
+                <span class="timeline-year">2025</span>
+                <span class="timeline-title">NUV Yuva 2025</span>
+              </div>
+              <p>
+                Record-breaking attendance with 5000+ participants across 50+
+                events
+              </p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-marker"></div>
+            <div class="timeline-body">
+              <div class="timeline-label">
+                <span class="timeline-year">2024</span>
+                <span class="timeline-title">NUV Yuva 2024</span>
+              </div>
+              <p>Introduced digital events and virtual participation options</p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-marker"></div>
+            <div class="timeline-body">
+              <div class="timeline-label">
+                <span class="timeline-year">2023</span>
+                <span class="timeline-title">NUV Yuva 2023</span>
+              </div>
+              <p>First inter-university cultural exchange program launched</p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-marker"></div>
+            <div class="timeline-body">
+              <div class="timeline-label">
+                <span class="timeline-year">2022</span>
+                <span class="timeline-title">NUV Yuva 2022</span>
+              </div>
+              <p>The inception of NUV Yuva - A dream becomes reality</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-section">
+            <h3 class="text-gradient">NUV Yuva 2026</h3>
+            <p style="color: var(--muted); margin: 1rem 0">
+              The ultimate cultural extravaganza bringing together talent,
+              creativity, and celebration.
+            </p>
+            <div class="social-links">
+              <a href="#" class="social-link" aria-label="facebook"
+                ><i class="fa-brands fa-facebook-f"></i
+              ></a>
+              <a href="#" class="social-link" aria-label="instagram"
+                ><i class="fa-brands fa-instagram"></i
+              ></a>
+              <a href="#" class="social-link" aria-label="twitter"
+                ><i class="fa-brands fa-x-twitter"></i
+              ></a>
+              <a href="#" class="social-link" aria-label="youtube"
+                ><i class="fa-brands fa-youtube"></i
+              ></a>
+            </div>
+          </div>
+
+          <div class="footer-section">
+            <h4>Quick Links</h4>
+            <a href="#current-fest">Current Events</a>
+            <a href="#last-year">Gallery</a>
+            <a href="#committee">Committee</a>
+            <a href="#">Sponsors</a>
+          </div>
+
+          <div class="footer-section">
+            <h4>Contact Us</h4>
+            <p style="color: var(--muted); margin-bottom: 0.5rem">
+              📍 Navrachana University, Vasna- Bhayli Road, Navrachana, Gujarat,
+              India
+            </p>
+            <p style="color: var(--muted); margin-bottom: 0.5rem">
+              📞 +91 2652617100
+            </p>
+            <p style="color: var(--muted)">✉️ nuv@nuv.ac.in</p>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p>
+            © 2026 NUV Yuva. All rights reserved. Made with ❤️ by the Cultural
+            Committee
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Liquid Glass Button Component -->
+    <script src="assets/js/components/liquid-glass-button.js" defer></script>
+    <!-- Button Splash Effect Component -->
+    <script src="assets/js/components/button-splash.js" defer></script>
+    <!-- Main Page Script -->
+    <script src="NUV_Yuva.js" defer></script>
+  </body>
+</html>

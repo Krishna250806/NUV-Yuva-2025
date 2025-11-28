@@ -1,0 +1,218 @@
+/* ============================================================================
+   Button Splash Effect Component
+   Directional color splash on hover with pointer tracking
+   Performant GPU-composited effect, respects prefers-reduced-motion
+   ============================================================================ */
+
+/* ============================================================================
+   CSS Variables (Customizable)
+   ============================================================================ */
+.with-splash {
+  /* Splash position tracking (updated via JS) */
+  --splash-x: 50%;
+  --splash-y: 50%;
+  --splash-opacity: 0;
+  --splash-scale: 1;
+
+  /* Splash appearance */
+  --splash-size: 240px;
+  --splash-color: rgba(139, 92, 246, 0.24);
+  --splash-blur: 40px;
+
+  /* Optional parallax offset for directional effect */
+  --splash-offset-x: 0;
+  --splash-offset-y: 0;
+
+  /* Transition timing */
+  --splash-transition: opacity 0.3s ease-out, transform 0.15s ease-out;
+}
+
+/* ============================================================================
+   Splash Effect Pseudo-Element
+   ============================================================================ */
+.with-splash::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  overflow: hidden;
+
+  /* Radial gradient that moves with cursor */
+  background: radial-gradient(
+    circle var(--splash-size),
+    var(--splash-color) 0%,
+    transparent 70%
+  );
+  background-position: var(--splash-x) var(--splash-y);
+  background-size: calc(var(--splash-size) * 2) calc(var(--splash-size) * 2);
+  background-attachment: local;
+
+  /* Smooth opacity transition */
+  opacity: var(--splash-opacity);
+  transition: var(--splash-transition);
+
+  /* Optional blend mode for richer color interaction */
+  mix-blend-mode: screen;
+
+  /* GPU optimization: use will-change sparingly */
+  will-change: opacity, transform;
+}
+
+/* ============================================================================
+   Splash Size Variants
+   ============================================================================ */
+.with-splash[data-splash-size="small"]::before {
+  --splash-size: 120px;
+}
+
+.with-splash[data-splash-size="medium"]::before {
+  --splash-size: 200px;
+}
+
+.with-splash[data-splash-size="large"]::before {
+  --splash-size: 300px;
+}
+
+/* ============================================================================
+   Color Variants (via data-splash attribute)
+   ============================================================================ */
+
+/* Primary / Default (purple) */
+.with-splash:not([data-splash])::before,
+.with-splash[data-splash="primary"]::before {
+  --splash-color: rgba(139, 92, 246, 0.24);
+}
+
+/* Cool (cyan/blue) */
+.with-splash[data-splash="cool"]::before {
+  --splash-color: rgba(34, 211, 238, 0.24);
+}
+
+/* Destructive (red) */
+.with-splash[data-splash="destructive"]::before {
+  --splash-color: rgba(239, 68, 68, 0.24);
+}
+
+/* Secondary (indigo) */
+.with-splash[data-splash="secondary"]::before {
+  --splash-color: rgba(99, 102, 241, 0.24);
+}
+
+/* Success (green) */
+.with-splash[data-splash="success"]::before {
+  --splash-color: rgba(34, 197, 94, 0.24);
+}
+
+/* Warning (amber) */
+.with-splash[data-splash="warning"]::before {
+  --splash-color: rgba(217, 119, 6, 0.24);
+}
+
+/* Ghost / Neutral (gray) */
+.with-splash[data-splash="ghost"]::before {
+  --splash-color: rgba(107, 114, 128, 0.24);
+}
+
+/* ============================================================================
+   Focus States (Keyboard Navigation)
+   ============================================================================ */
+.with-splash:focus-visible {
+  /* Ensure focus ring is visible */
+  outline: 2px solid;
+  outline-offset: 2px;
+}
+
+/* Show centered splash on keyboard focus */
+.with-splash:focus-visible::before {
+  --splash-x: 50%;
+  --splash-y: 50%;
+  --splash-opacity: 0.6;
+}
+
+/* ============================================================================
+   Active / Pressed State
+   ============================================================================ */
+.with-splash.splash-pressed::before {
+  --splash-scale: 1.15;
+  --splash-opacity: 0.9;
+}
+
+/* ============================================================================
+   Accessibility: Prefers Reduced Motion
+   
+   When user has prefers-reduced-motion enabled, disable splash tracking
+   and use only static on-hover splash with no animation.
+   ============================================================================ */
+@media (prefers-reduced-motion: reduce) {
+  .with-splash::before {
+    /* Disable smooth transitions */
+    transition: none;
+
+    /* Disable parallax/offset */
+    --splash-offset-x: 0 !important;
+    --splash-offset-y: 0 !important;
+
+    /* Optional: keep splash centered and reduce opacity for subtlety */
+    --splash-x: 50% !important;
+    --splash-y: 50% !important;
+  }
+
+  /* On hover, show only a static centered splash (no tracking) */
+  .with-splash:hover::before {
+    --splash-opacity: 0.4;
+  }
+
+  /* On focus, show subtle centered splash */
+  .with-splash:focus-visible::before {
+    --splash-opacity: 0.5;
+  }
+
+  /* No splash intensification on press when motion is reduced */
+  .with-splash.splash-pressed::before {
+    --splash-scale: 1;
+    --splash-opacity: 0.4;
+  }
+}
+
+/* ============================================================================
+   Touch Device Detection (via JS data attribute)
+   
+   On touch devices, disable complex pointer tracking and use simpler
+   animated splash on touchstart/touchend to preserve battery.
+   ============================================================================ */
+.with-splash[data-touch-mode="true"]::before {
+  /* Simpler, less frequent updates */
+  transition: opacity 0.2s ease-out, transform 0.2s ease-out;
+}
+
+/* ============================================================================
+   Responsive Adjustments
+   ============================================================================ */
+@media (max-width: 640px) {
+  .with-splash {
+    /* Reduce splash size on mobile for better fit */
+    --splash-size: 160px;
+  }
+}
+
+@media (max-width: 420px) {
+  .with-splash {
+    --splash-size: 120px;
+  }
+}
+
+/* ============================================================================
+   Debug Mode (optional, for development)
+   Add data-debug="true" to .with-splash to see coordinates
+   ============================================================================ */
+.with-splash[data-debug="true"]::after {
+  content: "X: " attr(data-debug-x) " Y: " attr(data-debug-y);
+  position: absolute;
+  bottom: -1.5rem;
+  left: 0;
+  font-size: 0.7rem;
+  color: #999;
+  pointer-events: none;
+  font-family: monospace;
+}

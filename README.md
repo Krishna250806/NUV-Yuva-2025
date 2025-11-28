@@ -5,7 +5,7 @@ This repo has been cleaned to remove demo pages and keep only assets used in pro
 
 ## Structure
 
-- `NUV_Yuva.html` — main site page
+- `index.html` — main site page
 - `NUV_Yuva.css` — primary stylesheet (all effects and components)
 - `NUV_Yuva.js` — main behavior script (interactions, animations, ribbon)
 - `assets/` — UI components and CSS (button splash, glass button)

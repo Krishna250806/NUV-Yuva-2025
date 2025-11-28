@@ -594,16 +594,17 @@
     // add hero glow if absent
     if (!q('.hero-glow') && q('.hero')) {
       const g = document.createElement('div'); g.className = 'hero-glow'; q('.hero').appendChild(g);
-      // add sparklers if appropriate
+      // add a few lightweight sparklers (reduced for smoother performance)
       if (!reduceMotion) {
-        for (let i = 0; i < 8; i++) {
+        const sparkCount = 4;
+        for (let i = 0; i < sparkCount; i++) {
           const s = document.createElement('div');
           s.className = 'sparkle';
-          s.style.left = `${10 + Math.random() * 80}%`;
-          s.style.bottom = `${10 + Math.random() * 60}%`;
-          s.style.width = `${6 + Math.random() * 8}px`;
-          s.style.height = `${6 + Math.random() * 8}px`;
-          s.style.animationDuration = `${5 + Math.random() * 6}s`;
+          s.style.left = `${15 + Math.random() * 70}%`;
+          s.style.bottom = `${15 + Math.random() * 50}%`;
+          s.style.width = `${5 + Math.random() * 6}px`;
+          s.style.height = `${5 + Math.random() * 6}px`;
+          s.style.animationDuration = `${6 + Math.random() * 6}s`;
           q('.hero').appendChild(s);
         }
       }

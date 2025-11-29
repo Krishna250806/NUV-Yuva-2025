@@ -18,6 +18,19 @@
       name="description"
       content="Explore the vibrant Yuva Gallery - A celebration of culture and tradition at NUV Yuva 2026"
     />
+    <!-- Preload critical images -->
+    <link
+      rel="preload"
+      as="image"
+      href="yuva-images/yuva1.JPG"
+      fetchpriority="high"
+    />
+    <link
+      rel="preload"
+      as="image"
+      href="yuva-images/yuva4.JPG"
+      fetchpriority="high"
+    />
   </head>
   <body class="yuva-gallery-page">
     <!-- Navbar -->
@@ -89,7 +102,9 @@
               <img
                 src="yuva-images/yuva1.JPG"
                 alt="Yuva Gallery Image 1"
-                loading="lazy"
+                loading="eager"
+                fetchpriority="high"
+                decoding="async"
               />
               <div class="slide-overlay"></div>
             </div>
@@ -98,6 +113,7 @@
                 src="yuva-images/yuva2.JPG"
                 alt="Yuva Gallery Image 2"
                 loading="lazy"
+                decoding="async"
               />
               <div class="slide-overlay"></div>
             </div>
@@ -106,6 +122,7 @@
                 src="yuva-images/yuva3.JPG"
                 alt="Yuva Gallery Image 3"
                 loading="lazy"
+                decoding="async"
               />
               <div class="slide-overlay"></div>
             </div>
@@ -114,6 +131,7 @@
                 src="yuva-images/yuva4.JPG"
                 alt="Yuva Gallery Image 4"
                 loading="lazy"
+                decoding="async"
               />
               <div class="slide-overlay"></div>
             </div>

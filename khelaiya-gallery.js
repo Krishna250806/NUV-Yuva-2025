@@ -70,6 +70,18 @@ function changeSlide(direction) {
   slides[currentSlide].classList.add('active');
   updateIndicators();
   
+  // Preload next slide for smoother transition
+  const nextIndex = (currentSlide + 1) % totalSlides;
+  const nextSlide = slides[nextIndex];
+  if (nextSlide) {
+    const nextImg = nextSlide.querySelector('img');
+    if (nextImg && !nextImg.complete) {
+      const preloadImg = new Image();
+      preloadImg.src = nextImg.src;
+      preloadImg.loading = 'eager';
+    }
+  }
+  
   // Reset auto-slide timer
   resetAutoSlide();
 }
@@ -138,13 +150,33 @@ function handleKeyboard(e) {
   }
 }
 
-// Preload images for smooth transitions
+// Preload images for smooth transitions - OPTIMIZED
 function preloadImages() {
+  // Preload all images immediately for faster transitions
   slides.forEach((slide, index) => {
     const img = slide.querySelector('img');
-    if (img && !img.complete) {
+    if (img) {
       const preloadImg = new Image();
       preloadImg.src = img.src;
+      preloadImg.loading = 'eager';
+      preloadImg.onload = () => {
+        if (img) img.dataset.preloaded = 'true';
+      };
+    }
+  });
+  
+  // Preload next 2 slides immediately
+  const nextIndex1 = (currentSlide + 1) % totalSlides;
+  const nextIndex2 = (currentSlide + 2) % totalSlides;
+  [nextIndex1, nextIndex2].forEach(index => {
+    const slide = slides[index];
+    if (slide) {
+      const img = slide.querySelector('img');
+      if (img && !img.complete) {
+        const preloadImg = new Image();
+        preloadImg.src = img.src;
+        preloadImg.loading = 'eager';
+      }
     }
   });
 }

@@ -18,6 +18,14 @@
       name="description"
       content="Explore the vibrant Khelaiya Gallery - A celebration of culture and tradition at NUV Yuva 2026"
     />
+    <!-- Preload critical images and video -->
+    <link
+      rel="preload"
+      as="image"
+      href="khelaiya-images/khelaiya1.JPG"
+      fetchpriority="high"
+    />
+    <link rel="preload" as="video" href="khelaiya-images/khelaiya7.MOV" />
   </head>
   <body class="khelaiya-gallery-page">
     <!-- Navbar -->
@@ -69,6 +77,7 @@
         muted
         loop
         playsinline
+        preload="metadata"
       >
         <source src="khelaiya-images/khelaiya7.MOV" type="video/quicktime" />
         <source src="khelaiya-images/khelaiya7.MOV" type="video/mp4" />
@@ -94,7 +103,9 @@
               <img
                 src="khelaiya-images/khelaiya1.JPG"
                 alt="Khelaiya Gallery Image 1"
-                loading="lazy"
+                loading="eager"
+                fetchpriority="high"
+                decoding="async"
               />
               <div class="slide-overlay"></div>
             </div>
@@ -103,6 +114,7 @@
                 src="khelaiya-images/khelaiya2.JPG"
                 alt="Khelaiya Gallery Image 2"
                 loading="lazy"
+                decoding="async"
               />
               <div class="slide-overlay"></div>
             </div>
@@ -111,6 +123,7 @@
                 src="khelaiya-images/khelaiya3.JPG"
                 alt="Khelaiya Gallery Image 3"
                 loading="lazy"
+                decoding="async"
               />
               <div class="slide-overlay"></div>
             </div>
@@ -119,6 +132,7 @@
                 src="khelaiya-images/khelaiya4.JPG"
                 alt="Khelaiya Gallery Image 4"
                 loading="lazy"
+                decoding="async"
               />
               <div class="slide-overlay"></div>
             </div>
@@ -127,6 +141,7 @@
                 src="khelaiya-images/khelaiya5.JPG"
                 alt="Khelaiya Gallery Image 5"
                 loading="lazy"
+                decoding="async"
               />
               <div class="slide-overlay"></div>
             </div>

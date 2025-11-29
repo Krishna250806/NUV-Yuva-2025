@@ -22,6 +22,25 @@
       name="description"
       content="Join NUV Yuva 2026, the ultimate college cultural fest featuring music, dance, drama, art, and more. Register now for 3 days of non-stop entertainment!"
     />
+    <!-- Preload critical gallery images -->
+    <link
+      rel="preload"
+      as="image"
+      href="khelaiya-images/khelaiya1.JPG"
+      fetchpriority="high"
+    />
+    <link
+      rel="preload"
+      as="image"
+      href="yuva-images/yuva1.JPG"
+      fetchpriority="high"
+    />
+    <link
+      rel="preload"
+      as="image"
+      href="janmashtami-images/jnm1.JPG"
+      fetchpriority="high"
+    />
   </head>
   <body class="loading enchanted-forest">
     <!-- Loading Screen -->
@@ -278,21 +297,39 @@
             class="gallery-item gallery-item-link"
             data-title="Khelaiya"
           >
-            <img src="khelaiya-images/khelaiya1.JPG" alt="Khelaiya Gallery" />
+            <img
+              src="khelaiya-images/khelaiya1.JPG"
+              alt="Khelaiya Gallery"
+              loading="eager"
+              fetchpriority="high"
+              decoding="async"
+            />
           </a>
           <a
             href="yuva.html"
             class="gallery-item gallery-item-link"
             data-title="Yuva"
           >
-            <img src="yuva-images/yuva1.JPG" alt="Yuva Gallery" />
+            <img
+              src="yuva-images/yuva1.JPG"
+              alt="Yuva Gallery"
+              loading="eager"
+              fetchpriority="high"
+              decoding="async"
+            />
           </a>
           <a
             href="janmashtami.html"
             class="gallery-item gallery-item-link"
             data-title="Janmashtami"
           >
-            <img src="janmashtami-images/jnm1.JPG" alt="Janmashtami Gallery" />
+            <img
+              src="janmashtami-images/jnm1.JPG"
+              alt="Janmashtami Gallery"
+              loading="eager"
+              fetchpriority="high"
+              decoding="async"
+            />
           </a>
           <div class="gallery-item" data-title="Rock Band">
             <img

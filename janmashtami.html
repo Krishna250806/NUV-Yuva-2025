@@ -18,6 +18,14 @@
       name="description"
       content="Explore the vibrant Janmashtami Gallery - A celebration of culture and tradition at NUV Yuva 2026"
     />
+    <!-- Preload critical images and video -->
+    <link
+      rel="preload"
+      as="image"
+      href="janmashtami-images/jnm1.JPG"
+      fetchpriority="high"
+    />
+    <link rel="preload" as="video" href="janmashtami-images/jnm6.MP4" />
   </head>
   <body class="janmashtami-gallery-page">
     <!-- Navbar -->
@@ -69,6 +77,7 @@
         muted
         loop
         playsinline
+        preload="metadata"
       >
         <source src="janmashtami-images/jnm6.MP4" type="video/mp4" />
         <source src="janmashtami-images/jnm6.MP4" type="video/quicktime" />
@@ -94,7 +103,9 @@
               <img
                 src="janmashtami-images/jnm1.JPG"
                 alt="Janmashtami Gallery Image 1"
-                loading="lazy"
+                loading="eager"
+                fetchpriority="high"
+                decoding="async"
               />
               <div class="slide-overlay"></div>
             </div>
@@ -103,6 +114,7 @@
                 src="janmashtami-images/jnm2.JPG"
                 alt="Janmashtami Gallery Image 2"
                 loading="lazy"
+                decoding="async"
               />
               <div class="slide-overlay"></div>
             </div>
@@ -111,6 +123,7 @@
                 src="janmashtami-images/jnm3.JPG"
                 alt="Janmashtami Gallery Image 3"
                 loading="lazy"
+                decoding="async"
               />
               <div class="slide-overlay"></div>
             </div>
@@ -119,6 +132,7 @@
                 src="janmashtami-images/jnm4.JPG"
                 alt="Janmashtami Gallery Image 4"
                 loading="lazy"
+                decoding="async"
               />
               <div class="slide-overlay"></div>
             </div>
@@ -127,6 +141,7 @@
                 src="janmashtami-images/jnm5.JPG"
                 alt="Janmashtami Gallery Image 5"
                 loading="lazy"
+                decoding="async"
               />
               <div class="slide-overlay"></div>
             </div>

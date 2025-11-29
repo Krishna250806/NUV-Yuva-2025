@@ -749,47 +749,29 @@
 
   // ========== mobile accordion for frames ==========
   (function committeeAccordionMobile() {
+    // Disabled: All committee members are always visible on mobile
+    // Previously this created accordion/dropdown functionality
     function setup() {
-      if (window.innerWidth > 860) return;
-      const frames = Array.from(document.querySelectorAll('.committee-frame'));
-      frames.forEach(frame => {
-        if (frame.dataset.accordionInit === '1') return;
-        frame.dataset.accordionInit = '1';
-        const role = frame.querySelector('.committee-role');
-        if (!role) return;
-        // create toggle button appended to role
-        const btn = document.createElement('button');
-        btn.type = 'button';
-        btn.className = 'committee-toggle';
-        btn.setAttribute('aria-expanded', 'true');
-        btn.style.background = 'none';
-        btn.style.border = 'none';
-        btn.style.cursor = 'pointer';
-        btn.style.padding = '0';
-        btn.style.marginLeft = '0.6rem';
-        btn.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
-        role.appendChild(btn);
-        // start collapsed
-        frame.classList.add('collapsed');
-        btn.setAttribute('aria-expanded', 'false');
-
-        btn.addEventListener('click', () => {
-          const isOpen = !frame.classList.toggle('collapsed');
-          btn.setAttribute('aria-expanded', String(isOpen));
+      // Remove any existing collapsed classes and toggle buttons on mobile
+      if (window.innerWidth <= 860) {
+        const frames = Array.from(document.querySelectorAll('.committee-frame'));
+        frames.forEach(frame => {
+          // Remove collapsed class to ensure visibility
+          frame.classList.remove('collapsed');
+          // Remove any existing toggle buttons
+          const toggleBtn = frame.querySelector('.committee-toggle');
+          if (toggleBtn) toggleBtn.remove();
+          // Ensure committee lists are visible
           const list = frame.querySelector('.committee-list');
-          if (!list) return;
-          if (isOpen) {
-            list.style.maxHeight = list.scrollHeight + 'px';
-            setTimeout(() => list.style.maxHeight = '', 420);
-          } else {
-            list.style.maxHeight = list.scrollHeight + 'px';
-            requestAnimationFrame(() => list.style.maxHeight = '0');
+          if (list) {
+            list.style.maxHeight = '';
+            list.style.overflow = 'visible';
           }
         });
-      });
+      }
     }
     window.addEventListener('load', setup);
-    window.addEventListener('resize', () => { clearTimeout(window.__committeeResize); window.__committeeResize = setTimeout(setup, 220); });
+    window.addEventListener('resize', () => { clearTimeout(window.__committeeResize); window.__committeeResize = setTimeout(setup, 220); });  
   })();
 
   // Accessibility helper: add aria attributes to mobile menu button

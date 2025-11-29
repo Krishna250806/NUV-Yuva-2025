@@ -1550,13 +1550,23 @@ select option:hover {
   max-width: 520px;
 }
 
-/* collapsed (mobile) */
+/* collapsed (desktop only - disabled on mobile) */
 .committee-frame.collapsed .committee-list {
   max-height: 0;
   overflow: hidden;
   pointer-events: none;
   transition: max-height 0.36s cubic-bezier(0.2, 0.9, 0.3, 1);
   padding-top: 0;
+}
+
+/* On mobile, ensure collapsed state doesn't hide items */
+@media (max-width: 860px) {
+  .committee-frame.collapsed .committee-list {
+    max-height: none !important;
+    overflow: visible !important;
+    pointer-events: auto !important;
+    padding-top: 0.75rem !important;
+  }
 }
 
 /* reveal animation shim */
@@ -2021,11 +2031,20 @@ footer a:hover {
     transform: none;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.38);
   }
+  /* All committee members always visible on mobile - no dropdown/collapse */
   .committee-frame.collapsed .committee-list {
-    max-height: 0;
-    padding-top: 0;
-    overflow: hidden;
-    transition: max-height 0.36s cubic-bezier(0.2, 0.9, 0.3, 1);
+    max-height: none !important;
+    padding-top: 0.75rem !important;
+    overflow: visible !important;
+  }
+  /* Hide toggle buttons on mobile since they're not needed */
+  .committee-toggle {
+    display: none !important;
+  }
+  /* Ensure committee lists are always visible */
+  .committee-list {
+    max-height: none !important;
+    overflow: visible !important;
   }
 }
 

@@ -212,7 +212,7 @@ body::after {
     transparent 55%
   );
   mix-blend-mode: screen;
-  filter: blur(40px);
+  /* filter: blur(40px); Removed for performance - using solid color instead */
   opacity: 0.7;
   animation: forestGlowDrift 28s ease-in-out infinite alternate;
 }
@@ -257,7 +257,7 @@ body.loading {
   align-items: center;
   justify-content: center;
   opacity: 1;
-  transition: opacity 0.6s ease-out, visibility 0.6s ease-out;
+  transition: opacity 0.3s ease-out, visibility 0.3s ease-out;
   visibility: visible;
 }
 
@@ -287,7 +287,7 @@ body.loading {
   background-clip: text;
   line-height: 1;
   margin: 0.2rem 0;
-  animation: logoSlideIn 0.8s ease-out;
+  animation: logoSlideIn 0.4s ease-out;
   text-shadow: 0 0 40px rgba(243, 229, 168, 0.35);
 }
 
@@ -311,7 +311,7 @@ body.loading {
   font-size: clamp(1rem, 2.5vw, 1.3rem);
   color: rgba(243, 229, 168, 0.85);
   margin-bottom: 2.5rem;
-  animation: fadeInUp 0.8s ease-out 0.4s both;
+  animation: fadeInUp 0.4s ease-out 0.2s both;
 }
 
 @keyframes fadeInUp {
@@ -328,7 +328,7 @@ body.loading {
 .loading-progress {
   max-width: 300px;
   margin: 0 auto;
-  animation: fadeInUp 0.8s ease-out 0.6s both;
+  animation: fadeInUp 0.4s ease-out 0.2s both;
 }
 
 .loading-bar {
@@ -475,12 +475,11 @@ body.loading {
     rgba(5, 17, 16, 0.85),
     rgba(5, 17, 16, 0.45)
   );
-  backdrop-filter: blur(8px);
+  /* backdrop-filter: blur(8px); Removed for performance */
   border-bottom: 1px solid rgba(243, 229, 168, 0.08);
   z-index: 1200;
   padding: 0.85rem 0;
-  transition: background 0.2s, box-shadow 0.2s, opacity 0.6s ease-out,
-    transform 0.6s ease-out;
+  transition: background 0.2s, opacity 0.3s ease-out;
 }
 .nav-content {
   display: flex;
@@ -515,16 +514,13 @@ body.loading {
   border: 1px solid rgba(255, 255, 255, 0.32);
   background: rgba(255, 255, 255, 0.08);
   color: #fdfbf5;
-  backdrop-filter: blur(16px) saturate(150%);
-  -webkit-backdrop-filter: blur(16px) saturate(150%);
-  box-shadow: inset 0 0 22px rgba(255, 255, 255, 0.2),
-    0 10px 24px rgba(0, 0, 0, 0.35);
+  /* backdrop-filter: blur(16px) saturate(150%); Removed for performance */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .navbar .btn:hover {
   transform: translateY(-2px);
-  box-shadow: inset 0 0 26px rgba(255, 255, 255, 0.25),
-    0 16px 32px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
 }
 .nav-links a:hover {
   color: var(--sunlit);
@@ -538,12 +534,9 @@ body.loading {
   border: 1px solid rgba(255, 255, 255, 0.25);
   background: rgba(255, 255, 255, 0.08);
   color: #fdfbf5;
-  backdrop-filter: blur(18px) saturate(140%);
-  -webkit-backdrop-filter: blur(18px) saturate(140%);
-  box-shadow: inset 0 0 22px rgba(255, 255, 255, 0.18),
-    0 12px 28px rgba(0, 0, 0, 0.25);
-  transition: transform 0.25s ease, box-shadow 0.25s ease,
-    border-color 0.25s ease;
+  /* backdrop-filter: blur(18px) saturate(140%); Removed for performance */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease, opacity 0.2s ease;
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
@@ -679,8 +672,8 @@ a.btn {
   background-position: center;
   background-repeat: no-repeat;
 
-  /* Heavier blur and reduced color for more contrast with the spotlight */
-  filter: blur(10px) saturate(0.5) brightness(0.5);
+  /* filter: blur(10px) saturate(0.5) brightness(0.5); Removed for performance */
+  opacity: 0.6;
 
   /* Mask cuts a transparent hole where the spotlight is centered; that shows the original (unblurred) hero under the hole. */
   --spot-size: 320px;
@@ -784,7 +777,7 @@ a.btn {
   inset: -10% -20% auto -20%;
   height: 60%;
   z-index: 6;
-  filter: blur(40px) saturate(1.02);
+  /* filter: blur(40px) saturate(1.02); Removed for performance */
   opacity: 0.6;
   pointer-events: none;
   background: radial-gradient(
@@ -1036,8 +1029,7 @@ a.btn {
 .liquid-btn.with-splash {
   background: rgba(255, 255, 255, var(--glass-alpha));
   border: 1px solid var(--border);
-  backdrop-filter: blur(8px) saturate(1.08);
-  -webkit-backdrop-filter: blur(8px) saturate(1.08);
+  /* backdrop-filter: blur(8px) saturate(1.08); Removed for performance */
   color: inherit;
 }
 
@@ -1149,16 +1141,15 @@ h1 .text-gradient {
   border: 1px solid rgba(255, 255, 255, 0.04);
   border-radius: 12px;
   padding: 1.6rem;
-  transition: transform 0.28s ease, box-shadow 0.28s ease,
-    border-color 0.28s ease;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.46);
+  transition: transform 0.2s ease, opacity 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   position: relative;
   overflow: visible;
+  will-change: transform;
 }
 .event-card:hover {
-  transform: translateY(-8px) scale(1.02);
-  box-shadow: 0 18px 44px rgba(47, 110, 106, 0.32);
-  border-color: rgba(243, 229, 168, 0.32);
+  transform: translateY(-4px);
+  box-shadow: 0 6px 16px rgba(47, 110, 106, 0.25);
 }
 .event-icon {
   width: 54px;
@@ -1170,7 +1161,7 @@ h1 .text-gradient {
   background: var(--gradient);
   font-size: 1.35rem;
   margin-bottom: 1rem;
-  transition: transform 0.28s;
+  transition: transform 0.2s ease;
 }
 .event-card:hover .event-icon {
   transform: translateY(-6px) rotate(-6deg);
@@ -1235,14 +1226,15 @@ h1 .text-gradient {
   height: 100%;
   object-fit: cover;
   display: block;
-  transition: transform 0.36s ease-out, filter 0.36s ease-out;
+  transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+  will-change: transform;
 }
 .gallery-item:hover img {
-  transform: scale(1.07);
-  filter: brightness(1.1);
+  transform: scale(1.05);
+  /* filter: brightness(1.1); Removed for performance */
 }
 .gallery-item {
-  transition: transform 0.3s ease-out;
+  transition: transform 0.2s ease-out;
 }
 .gallery-item:hover {
   transform: translateY(-5px);
@@ -1289,7 +1281,7 @@ h1 .text-gradient {
 
 .gallery-item-link:hover {
   transform: translateY(-8px);
-  box-shadow: 0 16px 40px rgba(47, 110, 106, 0.4);
+  box-shadow: 0 6px 16px rgba(47, 110, 106, 0.25);
 }
 
 /* ---------------- Registration Form ---------------- */
@@ -1630,7 +1622,7 @@ footer {
   z-index: 1;
   opacity: 1;
   transform: translateY(0);
-  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  transition: opacity 0.3s ease-out, transform 0.3s ease-out;
 }
 .footer-content {
   display: grid;
@@ -1801,7 +1793,7 @@ footer a:hover {
   }
 }
 .fade-in {
-  animation: fadeIn 0.6s ease-out;
+  animation: fadeIn 0.3s ease-out;
 }
 
 /* Enhanced entrance animations */
@@ -1852,7 +1844,7 @@ footer a:hover {
 /* Animation classes for page elements */
 .animate-on-scroll {
   opacity: 0;
-  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  transition: opacity 0.3s ease-out, transform 0.3s ease-out;
 }
 
 .animate-on-scroll.animated {
@@ -1897,7 +1889,7 @@ footer a:hover {
 .committee-grid > * {
   opacity: 0;
   transform: translateY(30px);
-  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  transition: opacity 0.3s ease-out, transform 0.3s ease-out;
 }
 
 .events-grid > *.animated,
@@ -2247,10 +2239,8 @@ section#registration.enchanted-register {
   font-weight: 600;
   letter-spacing: 0.5px;
   text-transform: uppercase;
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  box-shadow: inset 0 0 30px rgba(255, 255, 255, 0.65),
-    0 18px 40px rgba(47, 110, 106, 0.25);
+  /* backdrop-filter: blur(20px) saturate(180%); Removed for performance */
+  box-shadow: 0 8px 20px rgba(47, 110, 106, 0.2);
   transition: transform 0.25s ease, box-shadow 0.25s ease;
   overflow: hidden;
 }

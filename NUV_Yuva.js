@@ -144,8 +144,18 @@
       }, 300 + (i * 150));
     });
 
-    // Enhanced scroll reveal for all animated elements
+    // Enhanced scroll reveal for all animated elements - OPTIMIZED
+    let scrollTimeout;
+    let lastScrollTime = 0;
+    const SCROLL_THROTTLE = 100; // Throttle to 100ms
+    
     function revealOnScroll() {
+      const now = Date.now();
+      if (now - lastScrollTime < SCROLL_THROTTLE) {
+        return;
+      }
+      lastScrollTime = now;
+      
       const elements = qa('.animate-on-scroll, .events-grid > *, .gallery > *, .committee-grid > *');
       const windowHeight = window.innerHeight;
       
@@ -158,35 +168,56 @@
         if (isVisible) {
           el.classList.add('animated');
           
-          // Add stagger effect for grid items
+          // Simplified stagger effect
           if (el.parentElement && (el.parentElement.classList.contains('events-grid') || 
               el.parentElement.classList.contains('gallery') || 
               el.parentElement.classList.contains('committee-grid'))) {
             const siblings = Array.from(el.parentElement.children);
             const index = siblings.indexOf(el);
-            el.style.transitionDelay = `${index * 0.1}s`;
+            el.style.transitionDelay = `${Math.min(index * 0.05, 0.3)}s`;
           }
         }
       });
     }
 
-    // Animate footer when it comes into view
+    // Animate footer when it comes into view - OPTIMIZED
     const footer = q('footer');
     if (footer) {
+      let footerChecked = false;
       function checkFooter() {
+        if (footerChecked) return;
         const rect = footer.getBoundingClientRect();
-        if (rect.top < window.innerHeight && !footer.classList.contains('animated')) {
+        if (rect.top < window.innerHeight) {
           footer.classList.add('animated');
+          footerChecked = true;
         }
       }
       checkFooter();
-      window.addEventListener('scroll', checkFooter, { passive: true });
+      // Throttled scroll listener
+      let footerScrollTimeout;
+      window.addEventListener('scroll', () => {
+        if (footerScrollTimeout) return;
+        footerScrollTimeout = setTimeout(() => {
+          checkFooter();
+          footerScrollTimeout = null;
+        }, SCROLL_THROTTLE);
+      }, { passive: true });
     }
 
-    // Initial check and scroll listener
+    // Initial check and throttled scroll listener
     revealOnScroll();
-    window.addEventListener('scroll', () => requestAnimationFrame(revealOnScroll), { passive: true });
-    window.addEventListener('resize', revealOnScroll);
+    let scrollRAF;
+    window.addEventListener('scroll', () => {
+      if (scrollRAF) return;
+      scrollRAF = requestAnimationFrame(() => {
+        revealOnScroll();
+        scrollRAF = null;
+      });
+    }, { passive: true });
+    window.addEventListener('resize', () => {
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(revealOnScroll, 150);
+    }, { passive: true });
   }
 
   // ========== Global mobile menu toggle (exposed for inline onclick) ==========
@@ -364,7 +395,7 @@
       }
     });
   }
-  window.addEventListener('scroll', () => requestAnimationFrame(revealOnScroll), { passive: true });
+  // Removed duplicate scroll listener - already handled in initPageAnimations
 
   // lightweight confetti canvas
   function createConfettiCanvas() {
@@ -537,15 +568,29 @@
     });
   })();
 
-  // Navbar background on scroll
+  // Navbar background on scroll - OPTIMIZED with throttling
   const navbar = q('.navbar');
-  function updateNavbar() {
-    if (!navbar) return;
-    if (window.scrollY > 50) navbar.classList.add('nuv-scrolled');
-    else navbar.classList.remove('nuv-scrolled');
+  if (navbar) {
+    let navbarScrollTimeout;
+    let lastScrollY = window.scrollY;
+    function updateNavbar() {
+      if (!navbar) return;
+      const currentScrollY = window.scrollY;
+      if (Math.abs(currentScrollY - lastScrollY) < 10) return; // Skip if scroll is minimal
+      lastScrollY = currentScrollY;
+      
+      if (currentScrollY > 50) navbar.classList.add('nuv-scrolled');
+      else navbar.classList.remove('nuv-scrolled');
+    }
+    updateNavbar();
+    window.addEventListener('scroll', () => {
+      if (navbarScrollTimeout) return;
+      navbarScrollTimeout = requestAnimationFrame(() => {
+        updateNavbar();
+        navbarScrollTimeout = null;
+      });
+    }, { passive: true });
   }
-  updateNavbar();
-  window.addEventListener('scroll', updateNavbar, { passive: true });
 
   // Smooth scroll for same-page anchors
   qa('a[href^="#"]').forEach(a => {

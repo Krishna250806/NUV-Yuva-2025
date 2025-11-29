@@ -1247,13 +1247,49 @@ h1 .text-gradient {
 .gallery-item:hover {
   transform: translateY(-5px);
 }
+/* Clickable gallery item link */
+.gallery-item-link {
+  text-decoration: none;
+  display: block;
+  cursor: pointer;
+  position: relative;
+}
+
+/* Text overlay for gallery items - text in front */
+.gallery-item-link::after,
 .gallery-item::after {
+  content: attr(data-title);
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1rem;
+  background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.8) 100%);
+  color: var(--foreground);
+  font-weight: 700;
+  font-size: 1.1rem;
+  z-index: 3;
+  pointer-events: none;
+  text-align: center;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+}
+
+/* Gradient overlay for gallery items */
+.gallery-item-link::before,
+.gallery-item::before {
   content: "";
   position: absolute;
   inset: 0;
   background: linear-gradient(180deg, rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0.45));
   z-index: 2;
   pointer-events: none;
+}
+
+/* Removed "View Gallery" hover text - images in background, text in front */
+
+.gallery-item-link:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 16px 40px rgba(47, 110, 106, 0.4);
 }
 
 /* ---------------- Registration Form ---------------- */

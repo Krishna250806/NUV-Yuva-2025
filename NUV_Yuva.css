@@ -1135,14 +1135,14 @@ h1 .text-gradient {
 .event-card {
   background: linear-gradient(
     180deg,
-    rgba(255, 255, 255, 0.02),
-    rgba(10, 10, 10, 0.16)
+    rgba(5, 15, 14, 0.45),
+    rgba(8, 18, 16, 0.55)
   );
-  border: 1px solid rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 12px;
   padding: 1.6rem;
   transition: transform 0.2s ease, opacity 0.2s ease;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
   position: relative;
   overflow: visible;
   will-change: transform;
@@ -1158,10 +1158,17 @@ h1 .text-gradient {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--gradient);
+  background: linear-gradient(
+    135deg,
+    rgba(47, 110, 106, 0.75),
+    rgba(149, 88, 106, 0.65),
+    rgba(243, 229, 168, 0.7)
+  );
   font-size: 1.35rem;
   margin-bottom: 1rem;
   transition: transform 0.2s ease;
+  filter: brightness(1.15) contrast(1.1);
+  box-shadow: 0 4px 12px rgba(243, 229, 168, 0.25);
 }
 .event-card:hover .event-icon {
   transform: translateY(-6px) rotate(-6deg);
@@ -1205,7 +1212,7 @@ h1 .text-gradient {
 /* ---------------- Gallery ---------------- */
 .gallery {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(5, 1fr);
   gap: 1rem;
   margin-top: 1.8rem;
 }
@@ -1999,6 +2006,12 @@ footer a:hover {
 }
 
 /* ---------------- Responsive ---------------- */
+@media (max-width: 1200px) {
+  .gallery {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
 @media (max-width: 860px) {
   .nav-links {
     display: none;
@@ -2006,6 +2019,16 @@ footer a:hover {
   .mobile-menu {
     display: block;
   }
+  .gallery {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .gallery {
+    grid-template-columns: 1fr;
+  }
+}
   .hero {
     background-attachment: scroll !important;
     background-image: linear-gradient(

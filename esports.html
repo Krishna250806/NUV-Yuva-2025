@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Esports Gallery - NUV Yuva 2026</title>
+    <link rel="stylesheet" href="NUV_Yuva.css" />
+    <link rel="stylesheet" href="assets/ui/liquid-glass-button.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="esports-gallery.css" />
+    <meta
+      name="description"
+      content="Explore the vibrant Esports Gallery - A celebration of gaming and competition at NUV Yuva 2026"
+    />
+    <!-- Preload critical images -->
+    <link
+      rel="preload"
+      as="image"
+      href="eSports/IMG-20251206-WA0001.jpg"
+      fetchpriority="high"
+    />
+  </head>
+  <body class="esports-gallery-page">
+    <!-- Navbar -->
+    <nav class="navbar">
+      <div class="container">
+        <div class="nav-content">
+          <div class="logo" id="logo"><a href="index.html">NUV Yuva</a></div>
+          <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="index.html#current-fest">Current Fest</a>
+            <a href="index.html#last-year">Gallery</a>
+
+            <a href="index.html#committee">Committee</a>
+            <a href="index.html#registration" class="btn btn-primary"
+              >Register Now</a
+            >
+          </div>
+          <button
+            class="mobile-menu"
+            onclick="toggleMobileMenu()"
+            aria-label="Open menu"
+          >
+            <i class="fa-solid fa-bars" style="color: #f4f7fa"></i>
+          </button>
+        </div>
+      </div>
+      <div class="mobile-nav" id="mobileNav" aria-hidden="true">
+        <a href="index.html" onclick="toggleMobileMenu()">Home</a>
+        <a href="index.html#current-fest" onclick="toggleMobileMenu()"
+          >Current Fest</a
+        >
+        <a href="index.html#last-year" onclick="toggleMobileMenu()">Gallery</a>
+
+        <a href="index.html#committee" onclick="toggleMobileMenu()"
+          >Committee</a
+        >
+        <a href="index.html#registration" onclick="toggleMobileMenu()"
+          >Register</a
+        >
+      </div>
+    </nav>
+
+    <!-- Video Background -->
+    <div class="video-background-wrapper">
+      <div class="video-overlay"></div>
+    </div>
+
+    <!-- Main Gallery Content -->
+    <main class="gallery-main">
+      <div class="container">
+        <!-- Header -->
+        <header class="gallery-header fade-in-up">
+          <h1 class="text-gradient">Esports</h1>
+          <p class="gallery-subtitle">A Celebration of Gaming & Competition</p>
+        </header>
+
+        <!-- Slideshow Container -->
+        <div class="slideshow-container">
+          <!-- Slide Images -->
+          <div class="slide-wrapper">
+            <div class="slide active" data-slide="0">
+              <img
+                src="eSports/IMG-20251206-WA0001.jpg"
+                alt="Esports Gallery Image 1"
+                loading="eager"
+                fetchpriority="high"
+                decoding="async"
+              />
+              <div class="slide-overlay"></div>
+            </div>
+            <div class="slide" data-slide="1">
+              <img
+                src="eSports/IMG-20251206-WA0002.jpg"
+                alt="Esports Gallery Image 2"
+                loading="lazy"
+                decoding="async"
+              />
+              <div class="slide-overlay"></div>
+            </div>
+            <div class="slide" data-slide="2">
+              <img
+                src="eSports/IMG-20251206-WA0003.jpg"
+                alt="Esports Gallery Image 3"
+                loading="lazy"
+                decoding="async"
+              />
+              <div class="slide-overlay"></div>
+            </div>
+            <div class="slide" data-slide="3">
+              <img
+                src="eSports/IMG-20251206-WA0004.jpg"
+                alt="Esports Gallery Image 4"
+                loading="lazy"
+                decoding="async"
+              />
+              <div class="slide-overlay"></div>
+            </div>
+            <div class="slide" data-slide="4">
+              <img
+                src="eSports/IMG-20251206-WA0005.jpg"
+                alt="Esports Gallery Image 5"
+                loading="lazy"
+                decoding="async"
+              />
+              <div class="slide-overlay"></div>
+            </div>
+          </div>
+
+          <!-- Navigation Arrows -->
+          <button
+            class="slideshow-nav prev-btn"
+            aria-label="Previous image"
+            onclick="changeSlide(-1)"
+          >
+            <i class="fa-solid fa-chevron-left"></i>
+          </button>
+          <button
+            class="slideshow-nav next-btn"
+            aria-label="Next image"
+            onclick="changeSlide(1)"
+          >
+            <i class="fa-solid fa-chevron-right"></i>
+          </button>
+
+          <!-- Slide Indicators -->
+          <div class="slide-indicators">
+            <span
+              class="indicator active"
+              data-slide="0"
+              onclick="goToSlide(0)"
+            ></span>
+            <span
+              class="indicator"
+              data-slide="1"
+              onclick="goToSlide(1)"
+            ></span>
+            <span
+              class="indicator"
+              data-slide="2"
+              onclick="goToSlide(2)"
+            ></span>
+            <span
+              class="indicator"
+              data-slide="3"
+              onclick="goToSlide(3)"
+            ></span>
+            <span
+              class="indicator"
+              data-slide="4"
+              onclick="goToSlide(4)"
+            ></span>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-section">
+            <h3 class="text-gradient">NUV Yuva 2026</h3>
+            <p style="color: var(--muted); margin: 1rem 0">
+              The ultimate cultural extravaganza bringing together talent,
+              creativity, and celebration.
+            </p>
+          </div>
+          <div class="footer-section">
+            <h4>Quick Links</h4>
+            <a href="index.html#current-fest">Current Events</a>
+            <a href="index.html#last-year">Gallery</a>
+            <a href="khelaiya.html">Khelaiya</a>
+            <a href="index.html#committee">Committee</a>
+          </div>
+          <div class="footer-section">
+            <h4>Contact Us</h4>
+            <p style="color: var(--muted); margin-bottom: 0.5rem">
+              📍 Navrachana University, Vasna- Bhayli Road, Navrachana, Gujarat,
+              India
+            </p>
+            <p style="color: var(--muted); margin-bottom: 0.5rem">
+              📞 +91 2652617100
+            </p>
+            <p style="color: var(--muted)">✉️ nuv@nuv.ac.in</p>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>
+            © 2026 NUV Yuva. All rights reserved. Made with ❤️ by the Cultural
+            Committee
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="esports-gallery.js"></script>
+    <script>
+      // Mobile menu toggle function
+      function toggleMobileMenu() {
+        const mobileNav = document.getElementById("mobileNav");
+        const isHidden = mobileNav.getAttribute("aria-hidden") === "true";
+        mobileNav.setAttribute("aria-hidden", String(!isHidden));
+        mobileNav.classList.toggle("active");
+      }
+
+      // Navbar scroll effect
+      const navbar = document.querySelector(".navbar");
+      function updateNavbar() {
+        if (!navbar) return;
+        if (window.scrollY > 50) navbar.classList.add("nuv-scrolled");
+        else navbar.classList.remove("nuv-scrolled");
+      }
+      updateNavbar();
+      window.addEventListener("scroll", updateNavbar, { passive: true });
+    </script>
+  </body>
+</html>
+

@@ -134,6 +134,12 @@
   filter: brightness(0.9) contrast(1.1) saturate(1.1);
 }
 
+@media (max-width: 860px) {
+  .slide[data-slide="0"] img {
+    object-position: top;
+  }
+}
+
 .slide-overlay {
   position: absolute;
   top: 0;

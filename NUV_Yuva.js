@@ -23,7 +23,7 @@
     const loadingBarFill = q('.loading-bar-fill');
     const loadingPercentage = q('.loading-percentage');
     const body = document.body;
-    
+
     if (!loadingScreen || reduceMotion) {
       if (loadingScreen) loadingScreen.remove();
       return;
@@ -37,36 +37,36 @@
     // Simulate loading progress
     function updateProgress() {
       if (progress >= targetProgress) return;
-      
+
       // Calculate progress based on actual page load
       const resources = performance.getEntriesByType('resource');
       const totalResources = resources.length;
       const loadedResources = resources.filter(r => r.duration > 0).length;
       const resourceProgress = totalResources > 0 ? (loadedResources / totalResources) * 80 : 0;
-      
+
       // Combine with time-based progress
       const timeProgress = Math.min(30, ((Date.now() - startTime) / minDisplayTime) * 30);
       progress = Math.min(95, resourceProgress + timeProgress);
-      
+
       if (loadingBarFill) loadingBarFill.style.width = progress + '%';
       if (loadingPercentage) loadingPercentage.textContent = Math.round(progress) + '%';
-      
+
       requestAnimationFrame(updateProgress);
     }
 
     function hideLoadingScreen() {
       const elapsed = Date.now() - startTime;
       const remaining = Math.max(0, minDisplayTime - elapsed);
-      
+
       setTimeout(() => {
         progress = 100;
         if (loadingBarFill) loadingBarFill.style.width = '100%';
         if (loadingPercentage) loadingPercentage.textContent = '100%';
-        
+
         setTimeout(() => {
           loadingScreen.classList.add('hidden');
           body.classList.remove('loading');
-          
+
           // Remove loading screen from DOM after transition
           setTimeout(() => {
             loadingScreen.remove();
@@ -79,7 +79,7 @@
 
     // Start progress animation
     updateProgress();
-    
+
     // Hide when page is fully loaded
     if (document.readyState === 'complete') {
       hideLoadingScreen();
@@ -123,7 +123,7 @@
     const sections = qa('section');
     sections.forEach((section, index) => {
       section.classList.add('animate-on-scroll', 'fade-in-up');
-      
+
       // Alternate slide directions for visual interest
       if (index % 2 === 0) {
         section.classList.add('slide-in-left');
@@ -148,30 +148,29 @@
     let scrollTimeout;
     let lastScrollTime = 0;
     const SCROLL_THROTTLE = 100; // Throttle to 100ms
-    
+
     function revealOnScroll() {
       const now = Date.now();
       if (now - lastScrollTime < SCROLL_THROTTLE) {
         return;
       }
       lastScrollTime = now;
-      
-      const elements = qa('.animate-on-scroll, .events-grid > *, .gallery > *, .committee-grid > *');
+
+      const elements = qa('.animate-on-scroll, .events-grid > *, .gallery > *');
       const windowHeight = window.innerHeight;
-      
+
       elements.forEach((el) => {
         if (el.classList.contains('animated')) return;
-        
+
         const rect = el.getBoundingClientRect();
         const isVisible = rect.top < windowHeight - 100 && rect.bottom > 0;
-        
+
         if (isVisible) {
           el.classList.add('animated');
-          
+
           // Simplified stagger effect
-          if (el.parentElement && (el.parentElement.classList.contains('events-grid') || 
-              el.parentElement.classList.contains('gallery') || 
-              el.parentElement.classList.contains('committee-grid'))) {
+          if (el.parentElement && (el.parentElement.classList.contains('events-grid') ||
+            el.parentElement.classList.contains('gallery'))) {
             const siblings = Array.from(el.parentElement.children);
             const index = siblings.indexOf(el);
             el.style.transitionDelay = `${Math.min(index * 0.05, 0.3)}s`;
@@ -203,6 +202,12 @@
         }, SCROLL_THROTTLE);
       }, { passive: true });
     }
+
+    // Immediately show committee grid items (they should always be visible)
+    const committeeItems = qa('.committee-grid > *');
+    committeeItems.forEach((el) => {
+      el.classList.add('animated');
+    });
 
     // Initial check and throttled scroll listener
     revealOnScroll();
@@ -281,7 +286,7 @@
       const reg = q('#registration');
       if (reg) window.scrollTo({ top: reg.getBoundingClientRect().top + window.pageYOffset - NAVBAR_HEIGHT, behavior: 'smooth' });
       // optional confetti burst
-      try { confetti(window.innerWidth / 2, window.innerHeight / 3); } catch (e) {}
+      try { confetti(window.innerWidth / 2, window.innerHeight / 3); } catch (e) { }
     });
   }
 
@@ -496,24 +501,24 @@
       document.body.appendChild(backdrop);
 
       // modal container
-  const modal = document.createElement('div');
-  modal.id = 'nuv-modal';
-  modal.style.position = 'fixed';
-  modal.style.left = '50%';
-  modal.style.top = '50%';
-  modal.style.transform = 'translate(-50%,-50%) scale(.98)';
-  modal.style.minWidth = '320px';
-  modal.style.maxWidth = '520px';
-  modal.style.background = 'rgba(12, 20, 18, 0.8)';
-  modal.style.border = '1px solid rgba(255, 255, 255, 0.12)';
-  modal.style.borderRadius = '22px';
-  modal.style.padding = '1.4rem 1.6rem';
-  modal.style.boxShadow = '0 25px 70px rgba(0,0,0,0.55)';
-  modal.style.backdropFilter = 'blur(28px) saturate(160%)';
-  modal.style.WebkitBackdropFilter = 'blur(28px) saturate(160%)';
-  modal.style.zIndex = 7001;
-  modal.style.opacity = '0';
-  modal.style.transition = 'opacity .28s ease, transform .28s cubic-bezier(.2,.9,.3,1)';
+      const modal = document.createElement('div');
+      modal.id = 'nuv-modal';
+      modal.style.position = 'fixed';
+      modal.style.left = '50%';
+      modal.style.top = '50%';
+      modal.style.transform = 'translate(-50%,-50%) scale(.98)';
+      modal.style.minWidth = '320px';
+      modal.style.maxWidth = '520px';
+      modal.style.background = 'rgba(12, 20, 18, 0.8)';
+      modal.style.border = '1px solid rgba(255, 255, 255, 0.12)';
+      modal.style.borderRadius = '22px';
+      modal.style.padding = '1.4rem 1.6rem';
+      modal.style.boxShadow = '0 25px 70px rgba(0,0,0,0.55)';
+      modal.style.backdropFilter = 'blur(28px) saturate(160%)';
+      modal.style.WebkitBackdropFilter = 'blur(28px) saturate(160%)';
+      modal.style.zIndex = 7001;
+      modal.style.opacity = '0';
+      modal.style.transition = 'opacity .28s ease, transform .28s cubic-bezier(.2,.9,.3,1)';
 
       modal.innerHTML = `
         <div style="display:flex;gap:16px;align-items:center">
@@ -551,7 +556,7 @@
         setTimeout(() => { backdrop.remove(); modal.remove(); }, 280);
         const reg = q('#registration');
         if (reg) window.scrollTo({ top: reg.getBoundingClientRect().top + window.pageYOffset - NAVBAR_HEIGHT, behavior: 'smooth' });
-        try { confetti(window.innerWidth / 2, window.innerHeight / 3); } catch (e) {}
+        try { confetti(window.innerWidth / 2, window.innerHeight / 3); } catch (e) { }
       });
 
       // close modal with Escape
@@ -578,7 +583,7 @@
       const currentScrollY = window.scrollY;
       if (Math.abs(currentScrollY - lastScrollY) < 10) return; // Skip if scroll is minimal
       lastScrollY = currentScrollY;
-      
+
       if (currentScrollY > 50) navbar.classList.add('nuv-scrolled');
       else navbar.classList.remove('nuv-scrolled');
     }
@@ -687,24 +692,53 @@
 
   // ========== Committee pyramid builder ==========
   (function buildCommitteePyramid() {
-    function run() {
-      const oldGrid = document.querySelector('.committee-grid');
-      if (!oldGrid || oldGrid.dataset.pyramid === '1') return;
-      const cards = Array.from(oldGrid.querySelectorAll('.member-card'));
-      if (!cards.length) return;
+    // Ensure members are always visible
+    function ensureMembersVisible() {
+      const grid = document.querySelector('.committee-grid');
+      if (grid) {
+        grid.style.display = 'grid';
+        grid.style.opacity = '1';
+        grid.style.visibility = 'visible';
+        const cards = grid.querySelectorAll('.member-card');
+        cards.forEach(card => {
+          card.style.opacity = '1';
+          card.style.visibility = 'visible';
+          card.style.transform = 'translateY(0)';
+        });
+      }
+    }
 
-      // group members by role
+    function buildPyramid() {
+      const grid = document.querySelector('.committee-grid');
+      if (!grid) return;
+
+      // Only build on desktop check REMOVED to allow mobile pyramid
+      // if (window.innerWidth <= 860) {
+      //   ensureMembersVisible();
+      //   return;
+      // }
+
+      // Check if already built
+      if (grid.dataset.pyramidBuilt === 'true') return;
+
+      const cards = Array.from(grid.querySelectorAll('.member-card'));
+      if (cards.length === 0) {
+        ensureMembersVisible();
+        return;
+      }
+
+      // Group by role
       const groups = {};
       cards.forEach(card => {
         const nameEl = card.querySelector('.member-name');
         const roleEl = card.querySelector('.member-role');
-        const name = nameEl ? nameEl.textContent.trim() : (card.textContent || '').trim();
+        const name = nameEl ? nameEl.textContent.trim() : '';
         const role = roleEl ? roleEl.textContent.trim() : 'Other';
         if (!groups[role]) groups[role] = [];
-        groups[role].push({ name, rawEl: card });
+        groups[role].push(name);
       });
 
-      // role -> level mapping (editable)
+      // Role to level mapping
       const roleToLevel = {
         'President': 0,
         'Vice President': 1,
@@ -723,40 +757,34 @@
         'Technical Head': 5
       };
 
-      // compute rows by level for present roles
-      const presentRoles = Object.keys(groups);
+      // Build rows map
       const rowsMap = {};
-      presentRoles.forEach(r => {
-        const lvl = roleToLevel.hasOwnProperty(r) ? roleToLevel[r] : 6;
-        rowsMap[lvl] = rowsMap[lvl] || [];
-        rowsMap[lvl].push(r);
+      Object.keys(groups).forEach(role => {
+        const level = roleToLevel[role] !== undefined ? roleToLevel[role] : 6;
+        if (!rowsMap[level]) rowsMap[level] = [];
+        rowsMap[level].push({ role, names: groups[role] });
       });
 
       const levels = Object.keys(rowsMap).map(Number).sort((a, b) => a - b);
       const pyramid = document.createElement('div');
       pyramid.className = 'committee-pyramid';
 
-      function initialsOf(name) {
+      function getInitials(name) {
         if (!name) return '';
         const parts = name.split(/\s+/).filter(Boolean);
         if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
-        return (parts[0][0] + (parts[1][0] || '')).toUpperCase();
+        return (parts[0][0] + (parts[1] ? parts[1][0] : '')).toUpperCase();
       }
 
+      // Build pyramid structure
       levels.forEach(level => {
         const row = document.createElement('div');
         row.className = `pyramid-row level-${level}`;
         if (level === levels[0]) row.classList.add('top');
-        const roles = rowsMap[level];
 
-        // center heavier groups: sort by descending group size
-        roles.sort((a, b) => (groups[b].length - groups[a].length));
-
-        roles.forEach(role => {
-          const people = groups[role];
+        rowsMap[level].forEach(({ role, names }) => {
           const frame = document.createElement('div');
           frame.className = 'committee-frame';
-          if (people.length > 3) frame.classList.add('compact');
 
           const roleEl = document.createElement('div');
           roleEl.className = 'committee-role';
@@ -766,11 +794,14 @@
 
           const list = document.createElement('div');
           list.className = 'committee-list';
-          people.forEach(p => {
-            const item = document.createElement('div');
-            item.className = 'committee-person';
-            item.innerHTML = `<div class="person-avatar" aria-hidden="true">${initialsOf(p.name)}</div><div><div class="person-name">${p.name}</div></div>`;
-            list.appendChild(item);
+          names.forEach(name => {
+            const person = document.createElement('div');
+            person.className = 'committee-person';
+            person.innerHTML = `
+              <div class="person-avatar">${getInitials(name)}</div>
+              <div><div class="person-name">${name}</div></div>
+            `;
+            list.appendChild(person);
           });
 
           frame.appendChild(list);
@@ -780,16 +811,61 @@
         pyramid.appendChild(row);
       });
 
-      oldGrid.parentNode.replaceChild(pyramid, oldGrid);
-      pyramid.dataset.pyramid = '1';
+      // Replace grid with pyramid
+      try {
+        // ⬇️ if no rows / frames, fallback to showing normal grid
+        if (!levels.length) {
+          console.warn('No committee levels found, showing grid instead');
+          ensureMembersVisible();
+          return;
+        }
 
-      // reveal frames
-      const frames = pyramid.querySelectorAll('.committee-frame');
-      frames.forEach((f, i) => setTimeout(() => f.classList.add('reveal', 'revealed'), 120 + i * 90));
+        grid.dataset.pyramidBuilt = 'true';
+        grid.parentNode.insertBefore(pyramid, grid.nextSibling);
+        pyramid.style.display = 'flex';
+
+        // ✅ mark on body that pyramid is really ready
+        document.body.classList.add('committee-pyramid-ready');
+
+        // Animate frames
+        const frames = pyramid.querySelectorAll('.committee-frame');
+        frames.forEach((f, i) => {
+          setTimeout(() => {
+            f.classList.add('reveal', 'revealed');
+          }, 120 + i * 90);
+        });
+      } catch (error) {
+        console.error('Error building pyramid:', error);
+        ensureMembersVisible();
+      }
     }
 
-    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run);
-    else run();
+    // Initialize
+    function init() {
+      ensureMembersVisible();
+      buildPyramid();
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+
+    // Handle resize
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        const pyramid = document.querySelector('.committee-pyramid');
+        const grid = document.querySelector('.committee-grid');
+
+        // Always use pyramid logic if grid exists
+        if (grid && !pyramid && grid.dataset.pyramidBuilt !== 'true') {
+          buildPyramid();
+        }
+      }, 250);
+    }, { passive: true });
   })();
 
   // ========== mobile accordion for frames ==========
@@ -816,7 +892,7 @@
       }
     }
     window.addEventListener('load', setup);
-    window.addEventListener('resize', () => { clearTimeout(window.__committeeResize); window.__committeeResize = setTimeout(setup, 220); });  
+    window.addEventListener('resize', () => { clearTimeout(window.__committeeResize); window.__committeeResize = setTimeout(setup, 220); });
   })();
 
   // Accessibility helper: add aria attributes to mobile menu button
@@ -1145,9 +1221,9 @@
           btn.style.setProperty('--y', `${Math.round(yPx)}px`);
           btn.style.setProperty('--dx', String(dx));
           btn.style.setProperty('--dy', String(dy));
-              // compute rotation from directional delta so the streak aligns with motion
-              const ang = Math.atan2(dy, dx) * 180 / Math.PI || 0;
-              btn.style.setProperty('--rot', ang + 'deg');
+          // compute rotation from directional delta so the streak aligns with motion
+          const ang = Math.atan2(dy, dx) * 180 / Math.PI || 0;
+          btn.style.setProperty('--rot', ang + 'deg');
           rafId = null;
         });
       }

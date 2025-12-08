@@ -4,6 +4,7 @@
   min-height: 100vh;
   overflow-x: hidden;
   position: relative;
+  background-color: transparent; /* Ensure body allows video to show through */
 }
 
 /* Video Background */
@@ -13,7 +14,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: -1;
+  z-index: 0; /* Changed from -1 to 0 to sit above body background */
   overflow: hidden;
 }
 

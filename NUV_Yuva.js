@@ -376,31 +376,6 @@
     hero.addEventListener('pointerleave', () => qa('.hero-content, .hero-glow, .badge, .text-gradient').forEach(el => el.style.transform = ''));
   })();
 
-  // stagger reveal on scroll (for elements with .reveal or .reveal-stagger)
-  function revealOnScroll() {
-    const reveals = qa('.reveal, .reveal-stagger');
-    if (!reveals.length) return;
-    reveals.forEach(el => {
-      if (el.classList.contains('revealed')) return;
-      const r = el.getBoundingClientRect();
-      if (r.top < (window.innerHeight || document.documentElement.clientHeight) - 80) {
-        if (el.classList.contains('reveal-stagger')) {
-          const children = Array.from(el.children);
-          children.forEach((c, i) => {
-            c.style.transition = `opacity 520ms cubic-bezier(.2,.9,.3,1) ${(i * 80)}ms, transform 520ms ${(i * 80)}ms`;
-            c.style.opacity = 0;
-            requestAnimationFrame(() => {
-              c.style.opacity = 1;
-              c.style.transform = 'translateY(0)';
-            });
-          });
-        } else {
-          el.classList.add('revealed');
-        }
-      }
-    });
-  }
-  // Removed duplicate scroll listener - already handled in initPageAnimations
 
   // lightweight confetti canvas
   function createConfettiCanvas() {
@@ -1070,8 +1045,6 @@
       });
     });
   })();
-
-  // No longer needed — registration form removed from HTML
 
   // Respect reduced motion: remove heavy effects if user prefers reduced motion
   if (reduceMotion) {

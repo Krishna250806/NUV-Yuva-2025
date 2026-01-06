@@ -1072,7 +1072,7 @@ section {
   color: #d6cb96;
 }
 
-/* Center all headings - Force centering with display block and margin auto */
+/* Center all headings */
 h1,
 h2,
 h3,
@@ -1084,37 +1084,6 @@ h6 {
   width: 100% !important;
   margin-left: auto !important;
   margin-right: auto !important;
-}
-
-/* Ensure section titles are centered */
-.section-title {
-  text-align: center !important;
-  display: block !important;
-  width: 100% !important;
-  margin-left: auto !important;
-  margin-right: auto !important;
-}
-
-/* Ensure event titles are centered */
-.event-title {
-  text-align: center !important;
-  display: block !important;
-  width: 100% !important;
-}
-
-/* Ensure footer headings are centered */
-.footer-section h3,
-.footer-section h4 {
-  text-align: center !important;
-  display: block !important;
-  width: 100% !important;
-}
-
-/* Ensure timeline headings are centered */
-#previous-events h3 {
-  text-align: center !important;
-  display: block !important;
-  width: 100% !important;
 }
 
 /* Fix text-gradient to work with centered headings - parent h2 centers it */
@@ -1700,10 +1669,10 @@ select option:hover {
   display: flex;
   gap: 2rem;
   width: fit-content;
-  animation: slideSponsors 30s linear infinite;
+  animation: slideSponsors 15s linear infinite;
 }
 .sponsors-slider-past .sponsors-track {
-  animation: slideSponsorsReverse 35s linear infinite;
+  animation: slideSponsorsReverse 18s linear infinite;
 }
 .sponsor-item {
   flex-shrink: 0;

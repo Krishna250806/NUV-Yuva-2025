@@ -717,19 +717,19 @@
       const roleToLevel = {
         'President': 0,
         'Vice President': 1,
-        'Secretary': 2,
-        'Treasurer': 2,
+        
+        'Treasurer': 1,
         'Cultural Head': 3,
-        'Student Welfare': 3,
+        'Student Welfare': 5,
         'Marketing Head': 3,
-        'Outreach Head': 4,
-        'Design Head': 4,
-        'Content Head': 4,
-        'E-Sports Head': 4,
-        'Decoration Head': 5,
-        'Social Media Head': 5,
+        'Outreach Head': 5,
+        'Design Head': 5,
+        'Content Head': 3,
+        'E-Sports Head': 5,
+        'Decoration Head': 4,
+        'Social Media Head': 4,
         'Media Head': 5,
-        'Technical Head': 5
+        'Technical Head': 4
       };
 
       // Build rows map

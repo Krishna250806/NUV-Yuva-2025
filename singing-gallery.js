@@ -181,25 +181,78 @@ function preloadImages() {
   });
 }
 
-// Video play promise handling
+// Video play promise handling - Optimized for cross-device compatibility
 function handleVideoPlay() {
   const video = document.getElementById('background-video');
-  if (video) {
+  if (!video) return;
+  
+  // Set initial opacity to 0 for smooth fade-in
+  video.style.opacity = '0';
+  video.style.transition = 'opacity 1.5s ease-in';
+  
+  // Optimize video loading - force reload to ensure proper initialization
+  video.load();
+  
+  // Handle video ready state
+  const handleCanPlay = () => {
     const playPromise = video.play();
     
     if (playPromise !== undefined) {
       playPromise
         .then(() => {
-          // Video is playing
-          video.style.opacity = '1';
+          // Video is playing - fade in smoothly
+          requestAnimationFrame(() => {
+            video.style.opacity = '1';
+          });
         })
         .catch((error) => {
-          // Auto-play was prevented
-          console.log('Video autoplay prevented:', error);
-          // Fallback: show poster image or handle gracefully
+          // Auto-play was prevented (common on mobile)
+          console.log('Video autoplay prevented, showing anyway:', error);
+          // Still show the video even if autoplay fails
+          video.style.opacity = '1';
+          // Try to play again on user interaction
+          const tryPlayOnInteraction = () => {
+            video.play().catch(() => {});
+            document.removeEventListener('click', tryPlayOnInteraction);
+            document.removeEventListener('touchstart', tryPlayOnInteraction);
+          };
+          document.addEventListener('click', tryPlayOnInteraction, { once: true });
+          document.addEventListener('touchstart', tryPlayOnInteraction, { once: true });
         });
+    } else {
+      video.style.opacity = '1';
     }
+    
+    // Remove listener after first use
+    video.removeEventListener('canplay', handleCanPlay);
+    video.removeEventListener('loadeddata', handleCanPlay);
+  };
+  
+  // Check if video is already loaded enough
+  if (video.readyState >= 3) {
+    // Video already loaded enough
+    handleCanPlay();
+  } else {
+    // Wait for video to be ready
+    video.addEventListener('canplay', handleCanPlay, { once: true });
+    video.addEventListener('loadeddata', handleCanPlay, { once: true });
   }
+  
+  // Fallback timeout - ensure video is visible even if events don't fire
+  setTimeout(() => {
+    if (video.style.opacity === '0' || video.paused) {
+      video.style.opacity = '1';
+      // Try to play one more time
+      video.play().catch(() => {});
+    }
+  }, 3000);
+  
+  // Handle visibility change - resume video when page becomes visible
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden && video.paused) {
+      video.play().catch(() => {});
+    }
+  });
 }
 
 // Initialize when DOM is ready

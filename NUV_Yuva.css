@@ -677,7 +677,7 @@ a.btn {
       rgba(13, 30, 28, 0.66),
       rgba(13, 30, 28, 0.46)
     ),
-    url("yuva.jpg");
+    url("bg-image.JPG");
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
@@ -701,7 +701,7 @@ a.btn {
       rgba(13, 30, 28, 0.66),
       rgba(13, 30, 28, 0.46)
     ),
-    url("yuva.jpg");
+    url("bg-image.JPG");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -2234,7 +2234,7 @@ footer a:hover {
         rgba(6, 6, 10, 0.78),
         rgba(6, 6, 10, 0.6)
       ),
-      url("yuva.jpg");
+      url("bg-image.JPG");
   }
   .hero::before {
     background: linear-gradient(

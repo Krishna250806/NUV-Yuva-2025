@@ -678,9 +678,9 @@ a.btn {
       rgba(13, 30, 28, 0.46)
     ),
     url("bg-image.JPG");
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
+  background-size: 100% auto;
+  background-position: center top;
+  background-repeat: no-repeat;
   overflow: hidden;
   /* Use a separate blurred/dimmed background layer via ::before. Keep built-in hero image unfiltered so text remains sharp. */
   filter: none;
@@ -702,8 +702,8 @@ a.btn {
       rgba(13, 30, 28, 0.46)
     ),
     url("bg-image.JPG");
-  background-size: cover;
-  background-position: center;
+  background-size: 100% auto;
+  background-position: center top;
   background-repeat: no-repeat;
 
   /* filter: blur(10px) saturate(0.5) brightness(0.5); Removed for performance */
@@ -739,16 +739,16 @@ a.btn {
   );
   mix-blend-mode: screen;
   opacity: 1;
-  transition: --spotlight-brightness 0.12s ease, opacity 0.12s ease;
-  will-change: opacity, transform;
+  transition: opacity 0.12s ease;
 }
 .hero-content {
   text-align: center;
   z-index: 10;
   position: relative;
   max-width: 920px;
-  margin: 2rem auto;
+  margin: 10rem auto 2rem;
   padding: 1rem;
+  padding-top: 2rem;
   color: var(--foreground);
   text-shadow: 0 6px 18px rgba(0, 0, 0, 0.6);
   /* Ensure text stays sharp and crisp - no blur applied */
@@ -784,8 +784,8 @@ a.btn {
 }
 
 .hero-logo {
-  max-width: 500px;
-  width: clamp(250px, 50vw, 600px);
+  max-width: 320px;
+  width: clamp(180px, 32vw, 380px);
   height: auto;
   object-fit: contain;
   filter: drop-shadow(0 0 30px rgba(0, 0, 0, 0.9)) drop-shadow(0 8px 20px rgba(0, 0, 0, 0.7)) drop-shadow(0 0 12px rgba(0, 0, 0, 0.5)) brightness(1.15) contrast(1.15);
@@ -1446,6 +1446,19 @@ select option:hover {
   font-size: 1.05rem;
   flex-shrink: 0;
   box-shadow: 0 8px 18px rgba(0, 0, 0, 0.45);
+  overflow: hidden;
+}
+.member-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  will-change: opacity;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: translateZ(0);
 }
 .member-name {
   font-weight: 700;
@@ -1568,6 +1581,19 @@ select option:hover {
   background: linear-gradient(135deg, var(--primary), var(--secondary));
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.45);
   flex-shrink: 0;
+  overflow: hidden;
+}
+.person-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  will-change: opacity;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: translateZ(0);
 }
 .person-name {
   font-weight: 700;
@@ -2048,7 +2074,8 @@ footer a:hover {
 /* Animation classes for page elements */
 .animate-on-scroll {
   opacity: 0;
-  transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+  transition: opacity 0.25s ease-out, transform 0.25s ease-out;
+  will-change: opacity, transform;
 }
 
 .animate-on-scroll.animated {
@@ -2091,14 +2118,16 @@ footer a:hover {
 .events-grid > *,
 .gallery > * {
   opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+  transform: translate3d(0, 20px, 0);
+  transition: opacity 0.25s ease-out, transform 0.25s ease-out;
+  will-change: opacity, transform;
 }
 
 .events-grid > *.animated,
 .gallery > *.animated {
   opacity: 1;
-  transform: translateY(0);
+  transform: translate3d(0, 0, 0);
+  will-change: auto;
 }
 
 @keyframes slowFloat {
@@ -2235,6 +2264,9 @@ footer a:hover {
         rgba(6, 6, 10, 0.6)
       ),
       url("bg-image.JPG");
+    background-size: 100% auto !important;
+    background-position: center top !important;
+    background-repeat: no-repeat !important;
   }
   .hero::before {
     background: linear-gradient(

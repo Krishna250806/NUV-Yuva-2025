@@ -144,63 +144,54 @@
       }, 300 + (i * 150));
     });
 
-    // Enhanced scroll reveal for all animated elements - OPTIMIZED
-    let scrollTimeout;
-    let lastScrollTime = 0;
-    const SCROLL_THROTTLE = 100; // Throttle to 100ms
-
-    function revealOnScroll() {
-      const now = Date.now();
-      if (now - lastScrollTime < SCROLL_THROTTLE) {
-        return;
-      }
-      lastScrollTime = now;
-
-      const elements = qa('.animate-on-scroll, .events-grid > *, .gallery > *');
-      const windowHeight = window.innerHeight;
-
-      elements.forEach((el) => {
-        if (el.classList.contains('animated')) return;
-
-        const rect = el.getBoundingClientRect();
-        const isVisible = rect.top < windowHeight - 100 && rect.bottom > 0;
-
-        if (isVisible) {
-          el.classList.add('animated');
-
-          // Simplified stagger effect
-          if (el.parentElement && (el.parentElement.classList.contains('events-grid') ||
-            el.parentElement.classList.contains('gallery'))) {
-            const siblings = Array.from(el.parentElement.children);
-            const index = siblings.indexOf(el);
-            el.style.transitionDelay = `${Math.min(index * 0.05, 0.3)}s`;
+    // Optimized scroll reveal using IntersectionObserver (better performance than scroll listeners)
+    const animatedElements = qa('.animate-on-scroll, .events-grid > *, .gallery > *');
+    
+    if (animatedElements.length > 0 && 'IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !entry.target.classList.contains('animated')) {
+            entry.target.classList.add('animated');
+            
+            // Simplified stagger effect for grid items
+            const parent = entry.target.parentElement;
+            if (parent && (parent.classList.contains('events-grid') || parent.classList.contains('gallery'))) {
+              const siblings = Array.from(parent.children);
+              const index = siblings.indexOf(entry.target);
+              entry.target.style.transitionDelay = `${Math.min(index * 0.03, 0.2)}s`;
+            }
+            
+            // Unobserve after animation to improve performance
+            observer.unobserve(entry.target);
           }
-        }
+        });
+      }, {
+        rootMargin: '50px',
+        threshold: 0.1
       });
+
+      animatedElements.forEach((el) => {
+        observer.observe(el);
+      });
+    } else {
+      // Fallback for browsers without IntersectionObserver
+      animatedElements.forEach((el) => el.classList.add('animated'));
     }
 
-    // Animate footer when it comes into view - OPTIMIZED
+    // Footer animation with IntersectionObserver
     const footer = q('footer');
-    if (footer) {
-      let footerChecked = false;
-      function checkFooter() {
-        if (footerChecked) return;
-        const rect = footer.getBoundingClientRect();
-        if (rect.top < window.innerHeight) {
-          footer.classList.add('animated');
-          footerChecked = true;
-        }
-      }
-      checkFooter();
-      // Throttled scroll listener
-      let footerScrollTimeout;
-      window.addEventListener('scroll', () => {
-        if (footerScrollTimeout) return;
-        footerScrollTimeout = setTimeout(() => {
-          checkFooter();
-          footerScrollTimeout = null;
-        }, SCROLL_THROTTLE);
-      }, { passive: true });
+    if (footer && 'IntersectionObserver' in window) {
+      const footerObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('animated');
+            footerObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      footerObserver.observe(footer);
+    } else if (footer) {
+      footer.classList.add('animated');
     }
 
     // Immediately show committee grid items (they should always be visible)
@@ -208,21 +199,6 @@
     committeeItems.forEach((el) => {
       el.classList.add('animated');
     });
-
-    // Initial check and throttled scroll listener
-    revealOnScroll();
-    let scrollRAF;
-    window.addEventListener('scroll', () => {
-      if (scrollRAF) return;
-      scrollRAF = requestAnimationFrame(() => {
-        revealOnScroll();
-        scrollRAF = null;
-      });
-    }, { passive: true });
-    window.addEventListener('resize', () => {
-      clearTimeout(scrollTimeout);
-      scrollTimeout = setTimeout(revealOnScroll, 150);
-    }, { passive: true });
   }
 
   // ========== Global mobile menu toggle (exposed for inline onclick) ==========
@@ -469,7 +445,7 @@
       backdrop.style.width = '100%';
       backdrop.style.height = '100%';
       backdrop.style.background = 'rgba(0,0,0,0.6)';
-      backdrop.style.backdropFilter = 'blur(4px)';
+      // backdrop.style.backdropFilter = 'blur(4px)'; // Removed for performance
       backdrop.style.zIndex = 7000;
       backdrop.style.opacity = '0';
       backdrop.style.transition = 'opacity .28s ease';
@@ -489,8 +465,8 @@
       modal.style.borderRadius = '22px';
       modal.style.padding = '1.4rem 1.6rem';
       modal.style.boxShadow = '0 25px 70px rgba(0,0,0,0.55)';
-      modal.style.backdropFilter = 'blur(28px) saturate(160%)';
-      modal.style.WebkitBackdropFilter = 'blur(28px) saturate(160%)';
+      // modal.style.backdropFilter = 'blur(28px) saturate(160%)'; // Removed for performance
+      // modal.style.WebkitBackdropFilter = 'blur(28px) saturate(160%)'; // Removed for performance
       modal.style.zIndex = 7001;
       modal.style.opacity = '0';
       modal.style.transition = 'opacity .28s ease, transform .28s cubic-bezier(.2,.9,.3,1)';
@@ -744,8 +720,44 @@
       const pyramid = document.createElement('div');
       pyramid.className = 'committee-pyramid';
 
-      function getInitials(name) {
+      // Map member names to image filenames
+      function getMemberImage(name) {
         if (!name) return '';
+        
+        // Normalize name to lowercase for matching
+        const nameLower = name.toLowerCase().trim();
+        const firstName = nameLower.split(/\s+/)[0];
+        
+        // Map of names to image filenames (removed kanishka and priyanshi - images not loading)
+        const nameToImage = {
+          'zainab': 'zainab.jpg',
+          'vivek': 'vivek.jpg',
+          'devanshi': 'devanshi.jpg',
+          'venu': 'venu.jpg',
+          'dhrumi': 'dhrumi.jpg',
+          'krisha': 'krisha.jpg',
+          'vishi': 'vishi.jpg',
+          'vidhi': 'vishi.jpg',
+          'nikhil': 'nikhil.jpg',
+          'nividita': 'nividita.jpg',
+          'nivedita': 'nividita.jpg',
+          'ria': 'ria.jpg',
+          'rishita': 'rishita.jpg',
+          'ayaan': 'ayaan.jpg',
+          'lahar': 'lahar.jpg',
+          'tanaisha': 'tanaisha.jpg',
+          'tvisha': 'tvisha.jpg',
+          'elizabeth': 'elizabeth.jpg',
+          'hatim': 'hatim.jpg',
+          'hrishikesh': 'hrishikesh.jpg'
+        };
+        
+          const imageFile = nameToImage[firstName];
+          if (imageFile) {
+            return `<img src="member-images/${imageFile}" alt="${name}" loading="lazy" decoding="async" />`;
+          }
+        
+        // Fallback to initials if no image found
         const parts = name.split(/\s+/).filter(Boolean);
         if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
         return (parts[0][0] + (parts[1] ? parts[1][0] : '')).toUpperCase();
@@ -773,7 +785,7 @@
             const person = document.createElement('div');
             person.className = 'committee-person';
             person.innerHTML = `
-              <div class="person-avatar">${getInitials(name)}</div>
+              <div class="person-avatar">${getMemberImage(name)}</div>
               <div><div class="person-name">${name}</div></div>
             `;
             list.appendChild(person);
@@ -815,9 +827,106 @@
       }
     }
 
+    // Replace member avatars with images
+    function replaceMemberAvatars() {
+      const memberCards = document.querySelectorAll('.member-card');
+      const nameToImage = {
+        'zainab': 'zainab.jpg',
+        'vivek': 'vivek.jpg',
+        'devanshi': 'devanshi.jpg',
+        'venu': 'venu.jpg',
+        'dhrumi': 'dhrumi.jpg',
+        'krisha': 'krisha.jpg',
+        'vishi': 'vishi.jpg',
+        'vidhi': 'vishi.jpg',
+        'nikhil': 'nikhil.jpg',
+        'nividita': 'nividita.jpg',
+        'nivedita': 'nividita.jpg',
+        'ria': 'ria.jpg',
+        'rishita': 'rishita.jpg',
+        'ayaan': 'ayaan.jpg',
+        'lahar': 'lahar.jpg',
+        'tanaisha': 'tanaisha.jpg',
+        'tvisha': 'tvisha.jpg',
+        'elizabeth': 'elizabeth.jpg',
+        'hatim': 'hatim.jpg',
+        'hrishikesh': 'hrishikesh.jpg'
+      };
+      
+      // Use IntersectionObserver for lazy loading and performance optimization
+      const imageObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const avatarEl = entry.target;
+            const card = avatarEl.closest('.member-card');
+            if (!card) return;
+            
+            const nameEl = card.querySelector('.member-name');
+            if (!nameEl) return;
+            
+            const name = nameEl.textContent.trim();
+            const firstName = name.toLowerCase().split(/\s+/)[0];
+            const imageFile = nameToImage[firstName];
+            
+            if (imageFile && !avatarEl.querySelector('img')) {
+              // Store initials as fallback
+              const initials = avatarEl.textContent.trim();
+              
+              // Use requestAnimationFrame to defer image loading
+              requestAnimationFrame(() => {
+                avatarEl.textContent = ''; // Clear initials
+                
+                const img = document.createElement('img');
+                img.loading = 'lazy';
+                img.decoding = 'async';
+                img.src = `member-images/${imageFile}`;
+                img.alt = name;
+                
+                img.onerror = function() {
+                  // If image fails, restore the initials
+                  avatarEl.textContent = initials || name.split(/\s+/).map(n => n[0]).join('').slice(0, 2).toUpperCase();
+                  if (avatarEl.contains(img)) {
+                    avatarEl.removeChild(img);
+                  }
+                };
+                
+                img.onload = function() {
+                  // Image loaded successfully, ensure it's visible
+                  img.style.opacity = '1';
+                };
+                
+                img.style.opacity = '0';
+                img.style.transition = 'opacity 0.3s ease';
+                avatarEl.appendChild(img);
+                
+                // Fade in after a short delay
+                setTimeout(() => {
+                  img.style.opacity = '1';
+                }, 50);
+              });
+            }
+            
+            observer.unobserve(avatarEl);
+          }
+        });
+      }, {
+        rootMargin: '50px', // Start loading when 50px away from viewport
+        threshold: 0.01
+      });
+      
+      // Observe all member avatars for lazy loading
+      memberCards.forEach(card => {
+        const avatarEl = card.querySelector('.member-avatar');
+        if (avatarEl) {
+          imageObserver.observe(avatarEl);
+        }
+      });
+    }
+
     // Initialize
     function init() {
       ensureMembersVisible();
+      replaceMemberAvatars();
       buildPyramid();
     }
 

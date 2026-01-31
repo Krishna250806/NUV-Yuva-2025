@@ -146,13 +146,13 @@
 
     // Optimized scroll reveal using IntersectionObserver (better performance than scroll listeners)
     const animatedElements = qa('.animate-on-scroll, .events-grid > *, .gallery > *');
-    
+
     if (animatedElements.length > 0 && 'IntersectionObserver' in window) {
       const observer = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting && !entry.target.classList.contains('animated')) {
             entry.target.classList.add('animated');
-            
+
             // Simplified stagger effect for grid items
             const parent = entry.target.parentElement;
             if (parent && (parent.classList.contains('events-grid') || parent.classList.contains('gallery'))) {
@@ -160,7 +160,7 @@
               const index = siblings.indexOf(entry.target);
               entry.target.style.transitionDelay = `${Math.min(index * 0.03, 0.2)}s`;
             }
-            
+
             // Unobserve after animation to improve performance
             observer.unobserve(entry.target);
           }
@@ -693,7 +693,7 @@
       const roleToLevel = {
         'President': 0,
         'Vice President': 1,
-        
+
         'Treasurer': 1,
         'Cultural Head': 3,
         'Student Welfare': 5,
@@ -723,12 +723,12 @@
       // Map member names to image filenames
       function getMemberImage(name) {
         if (!name) return '';
-        
+
         // Normalize name to lowercase for matching
         const nameLower = name.toLowerCase().trim();
         const firstName = nameLower.split(/\s+/)[0];
-        
-        // Map of names to image filenames (removed kanishka and priyanshi - images not loading)
+
+        // Map of names to image filenames
         const nameToImage = {
           'zainab': 'zainab.jpg',
           'vivek': 'vivek.jpg',
@@ -749,14 +749,19 @@
           'tvisha': 'tvisha.jpg',
           'elizabeth': 'elizabeth.jpg',
           'hatim': 'hatim.jpg',
-          'hrishikesh': 'hrishikesh.jpg'
+          'hrishikesh': 'hrishikesh.jpg',
+          'dhyan': 'dhyaan.jpeg',
+          'dhyaan': 'dhyaan.jpeg',
+          'jatin': 'jatin.jpeg',
+          'kanishka': 'kanishka.jpeg',
+          'priyanshi': 'priyanshi.jpeg'
         };
-        
-          const imageFile = nameToImage[firstName];
-          if (imageFile) {
-            return `<img src="member-images/${imageFile}" alt="${name}" loading="lazy" decoding="async" />`;
-          }
-        
+
+        const imageFile = nameToImage[firstName];
+        if (imageFile) {
+          return `<img src="member-images/${imageFile}" alt="${name}" loading="lazy" decoding="async" />`;
+        }
+
         // Fallback to initials if no image found
         const parts = name.split(/\s+/).filter(Boolean);
         if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
@@ -850,9 +855,14 @@
         'tvisha': 'tvisha.jpg',
         'elizabeth': 'elizabeth.jpg',
         'hatim': 'hatim.jpg',
-        'hrishikesh': 'hrishikesh.jpg'
+        'hrishikesh': 'hrishikesh.jpg',
+        'dhyan': 'dhyaan.jpeg',
+        'dhyaan': 'dhyaan.jpeg',
+        'jatin': 'jatin.jpeg',
+        'kanishka': 'kanishka.jpeg',
+        'priyanshi': 'priyanshi.jpeg'
       };
-      
+
       // Use IntersectionObserver for lazy loading and performance optimization
       const imageObserver = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
@@ -860,52 +870,52 @@
             const avatarEl = entry.target;
             const card = avatarEl.closest('.member-card');
             if (!card) return;
-            
+
             const nameEl = card.querySelector('.member-name');
             if (!nameEl) return;
-            
+
             const name = nameEl.textContent.trim();
             const firstName = name.toLowerCase().split(/\s+/)[0];
             const imageFile = nameToImage[firstName];
-            
+
             if (imageFile && !avatarEl.querySelector('img')) {
               // Store initials as fallback
               const initials = avatarEl.textContent.trim();
-              
+
               // Use requestAnimationFrame to defer image loading
               requestAnimationFrame(() => {
                 avatarEl.textContent = ''; // Clear initials
-                
+
                 const img = document.createElement('img');
                 img.loading = 'lazy';
                 img.decoding = 'async';
                 img.src = `member-images/${imageFile}`;
                 img.alt = name;
-                
-                img.onerror = function() {
+
+                img.onerror = function () {
                   // If image fails, restore the initials
                   avatarEl.textContent = initials || name.split(/\s+/).map(n => n[0]).join('').slice(0, 2).toUpperCase();
                   if (avatarEl.contains(img)) {
                     avatarEl.removeChild(img);
                   }
                 };
-                
-                img.onload = function() {
+
+                img.onload = function () {
                   // Image loaded successfully, ensure it's visible
                   img.style.opacity = '1';
                 };
-                
+
                 img.style.opacity = '0';
                 img.style.transition = 'opacity 0.3s ease';
                 avatarEl.appendChild(img);
-                
+
                 // Fade in after a short delay
                 setTimeout(() => {
                   img.style.opacity = '1';
                 }, 50);
               });
             }
-            
+
             observer.unobserve(avatarEl);
           }
         });
@@ -913,7 +923,7 @@
         rootMargin: '50px', // Start loading when 50px away from viewport
         threshold: 0.01
       });
-      
+
       // Observe all member avatars for lazy loading
       memberCards.forEach(card => {
         const avatarEl = card.querySelector('.member-avatar');
